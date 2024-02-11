@@ -15,7 +15,7 @@ const sheets = google.sheets({ version: 'v4', auth: oAuth2Client });
 const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
 const range = 'Users!A1:B';
 
-app.get('/login', async (req, res) => {
+app.get('/getData', async (req, res) => {
     try {
         const response = await sheets.spreadsheets.values.get({
             spreadsheetId,
