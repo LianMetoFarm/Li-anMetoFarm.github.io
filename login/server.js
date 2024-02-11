@@ -3,7 +3,7 @@ const fs = require('fs');
 const readline = require('readline');
 
 // Load credentials from a JSON file
-const credentials = require('client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json');
+const credentials = require('./client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json');
 
 // Create an OAuth2 client with the given credentials
 const { client_secret, client_id, redirect_uris } = credentials.installed;
@@ -11,7 +11,7 @@ const oAuth2Client = new google.auth.OAuth2(
   client_id, client_secret, redirect_uris[0]);
 
 // Set the token if available, otherwise get a new one
-fs.readFile('client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json', (err, token) => {
+fs.readFile('./client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json', (err, token) => {
   if (err) {
     getAccessToken(oAuth2Client);
   } else {
@@ -37,9 +37,9 @@ function getAccessToken(oAuth2Client) {
       if (err) return console.error('Error retrieving access token', err);
       oAuth2Client.setCredentials(token);
       // Store the token to disk for later program executions
-      fs.writeFile('client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json', JSON.stringify(token), (err) => {
+      fs.writeFile('./client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json', JSON.stringify(token), (err) => {
         if (err) return console.error(err);
-        console.log('Token stored to', 'client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json');
+        console.log('Token stored to', './client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json');
       });
       accessSpreadsheet(oAuth2Client);
     });
