@@ -24,7 +24,7 @@ fs.readFile('./client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps
 function getAccessToken(oAuth2Client) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
-    scope: ['https://www.googleapis.com/auth/spreadsheets'],
+    scope: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
   });
   console.log('Authorize this app by visiting this URL:', authUrl);
   const rl = readline.createInterface({
