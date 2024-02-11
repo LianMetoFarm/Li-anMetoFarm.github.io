@@ -33,7 +33,7 @@ async function getGoogleSheetCredentials() {
 
     const response = await sheets.spreadsheets.values.get({
         spreadsheetId: SHEET_ID,
-        range: 'Credentials!A2:B', // Assuming your credentials are in the 'Credentials' sheet, column A for username and column B for password
+        range: 'Users!A2:B', // Assuming your credentials are in the 'Credentials' sheet, column A for username and column B for password
     });
 
     const credentials = response.data.values.map(row => {
