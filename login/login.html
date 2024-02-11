@@ -209,45 +209,76 @@
       </form>
     </div>
   </div>
-
+  <h1>Google Sheet Credentials</h1>
+  <div id="credentials"></div>
   <script>
 	// JavaScript code
-    const signInBtnLink = document.querySelector('.signInBtn-link');
-    const signUpBtnLink = document.querySelector('.signUpBtn-link');
-    const wrapper = document.querySelector('.wrapper');
+    // const signInBtnLink = document.querySelector('.signInBtn-link');
+    // const signUpBtnLink = document.querySelector('.signUpBtn-link');
+    // const wrapper = document.querySelector('.wrapper');
 
-    signUpBtnLink.addEventListener('click', () => {
-        wrapper.classList.toggle('active');
-    });
+    // signUpBtnLink.addEventListener('click', () => {
+    //     wrapper.classList.toggle('active');
+    // });
 
-    signInBtnLink.addEventListener('click', () => {
-        wrapper.classList.toggle('active');
-    });
-    async function submitForm(event) {
-      event.preventDefault(); // Mencegah form dari pengiriman default
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+    // signInBtnLink.addEventListener('click', () => {
+    //     wrapper.classList.toggle('active');
+    // });
+    // async function submitForm(event) {
+    //   event.preventDefault(); // Mencegah form dari pengiriman default
+    //   const username = document.getElementById("username").value;
+    //   const password = document.getElementById("password").value;
 
-      try {
-        const response = await fetch('/api/getCredentials');
-        if (!response.ok) {
-          throw new Error('Failed to fetch credentials');
-        }
-        const credentials = await response.json();
+    //   try {
+    //     const response = await fetch('/api/getCredentials');
+    //     if (!response.ok) {
+    //       throw new Error('Failed to fetch credentials');
+    //     }
+    //     const credentials = await response.json();
         
-        // Mengecek apakah kredensial yang dimasukkan pengguna benar
-        const isValidCredential = credentials.some(cred => cred.username === username && cred.password === password);
-        if (isValidCredential) {
-          // Redirect ke halaman lain jika login berhasil
-          window.location.href = "https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec"; // Ganti dengan URL yang diinginkan
-        } else {
-          document.getElementById("errorMessage").innerHTML = "Invalid username or password.";
+    //     // Mengecek apakah kredensial yang dimasukkan pengguna benar
+    //     const isValidCredential = credentials.some(cred => cred.username === username && cred.password === password);
+    //     if (isValidCredential) {
+    //       // Redirect ke halaman lain jika login berhasil
+    //       window.location.href = "https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec"; // Ganti dengan URL yang diinginkan
+    //     } else {
+    //       document.getElementById("errorMessage").innerHTML = "Invalid username or password.";
+    //     }
+    //   } catch (error) {
+    //     console.error('Error:', error);
+    //     document.getElementById("errorMessage").innerHTML = "Failed to login. Please try again later.";
+    //   }
+    // }
+	
+        async function fetchCredentials() {
+            try {
+                const response = await fetch('/api/getCredentials');
+                const credentials = await response.json();
+                displayCredentials(credentials);
+            } catch (error) {
+                console.error('Error fetching credentials:', error);
+                document.getElementById('credentials').innerText = 'Failed to fetch credentials';
+            }
         }
-      } catch (error) {
-        console.error('Error:', error);
-        document.getElementById("errorMessage").innerHTML = "Failed to login. Please try again later.";
-      }
-    }
+
+        function displayCredentials(credentials) {
+            const credentialsDiv = document.getElementById('credentials');
+            if (credentials.length === 0) {
+                credentialsDiv.innerText = 'No credentials found.';
+                return;
+            }
+
+            const credentialsList = document.createElement('ul');
+            credentials.forEach(credential => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Username: ${credential.username}, Password: ${credential.password}`;
+                credentialsList.appendChild(listItem);
+            });
+
+            credentialsDiv.appendChild(credentialsList);
+        }
+
+        fetchCredentials();
   </script>
 </body>
 
