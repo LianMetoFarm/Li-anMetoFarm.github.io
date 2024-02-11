@@ -23,7 +23,7 @@ app.get('/api/getCredentials', async (req, res) => {
 
 async function getGoogleSheetCredentials() {
     const auth = new google.auth.GoogleAuth({
-        keyFile: 'loginform-414019-14a61b228634.json',
+        keyFile: 'login/client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json',
         scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
 
