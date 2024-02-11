@@ -51,7 +51,7 @@ function accessSpreadsheet(auth) {
   const sheets = google.sheets({ version: 'v4', auth });
   sheets.spreadsheets.values.get({
     spreadsheetId: '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM',
-    range: 'Users!A1:B2',
+    range: 'Users!A2:B',
   }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
     const rows = res.data.values;
