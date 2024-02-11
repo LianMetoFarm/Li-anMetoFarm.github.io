@@ -162,7 +162,7 @@
 
   <div class="wrapper">
     <div class="form-wrapper sign-in">
-      <form id="loginForm" onsubmit="submitForm()">
+      <form onsubmit="submitForm()">
         <h2>Login</h2>
         <div class="input-group">
           <input type="text" id="username" required>
@@ -247,6 +247,18 @@
     });
    </script> -->
    <script>
+	// JavaScript code
+    const signInBtnLink = document.querySelector('.signInBtn-link');
+    const signUpBtnLink = document.querySelector('.signUpBtn-link');
+    const wrapper = document.querySelector('.wrapper');
+
+    signUpBtnLink.addEventListener('click', () => {
+        wrapper.classList.toggle('active');
+    });
+
+    signInBtnLink.addEventListener('click', () => {
+        wrapper.classList.toggle('active');
+    });
     async function submitForm(event) {
       event.preventDefault(); // Mencegah form dari pengiriman default
       const username = document.getElementById("username").value;
