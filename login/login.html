@@ -211,10 +211,6 @@
   </div>
 
   <script>
-    function CloseWindow() {
-      google.script.host.close();
-    }
-
     // JavaScript code
     const signInBtnLink = document.querySelector('.signInBtn-link');
     const signUpBtnLink = document.querySelector('.signUpBtn-link');
@@ -228,26 +224,28 @@
         wrapper.classList.toggle('active');
     });
 
-		function LoginUser()
+    function LoginUser()
     {
       var username = document.getElementById("username").value;
       var password = document.getElementById("password").value;
-      google.script.run.withSuccessHandler(function(output) 
-      {
-        if(output == 'TRUE')
-        {
-          // Membuka jendela baru
-          window.open('https://script.google.com/macros/s/AKfycbyTenHjkzJ-r5KTx5ltp8WhFLWj496lMjyO4smXG10OxNgXkTwjAabO62Si6elHbnHn/exec'); 
-          // Menutup jendela form login
-          CloseWindow(); 
-        }
-        else if(output == 'FALSE')
-        {
-          document.getElementById("errorMessage").innerHTML = "Please, Login again!";     
-        }    
-      }).checkLogin(username, password);
+	// Kirim data login ke server
+	// Di sini Anda dapat menggunakan AJAX atau fetch API untuk mengirimkan data ke backend
+	// Untuk contoh sederhana, saya hanya menampilkan pesan error jika username/password tidak sesuai
+	
+	if (username === "admin" && password === "admin123") {
+	    // Redirect ke halaman lain jika login berhasil
+	    window.location.href = "https://google.com"; // Ganti dengan URL yang diinginkan
+	} else {
+	    document.getElementById("errorMessage").innerHTML = "Invalid username or password.";
+	}
     }
-	</script>
+  
+    // Menghubungkan fungsi LoginUser dengan form submit
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Mencegah form dari pengiriman default
+        LoginUser(); // Panggil fungsi LoginUser
+    });
+   </script>
 </body>
 
 </html>
