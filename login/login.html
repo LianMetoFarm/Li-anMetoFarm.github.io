@@ -210,7 +210,7 @@
     </div>
   </div>
 
-  <script>
+<!--   <script>
     // JavaScript code
     const signInBtnLink = document.querySelector('.signInBtn-link');
     const signUpBtnLink = document.querySelector('.signUpBtn-link');
@@ -245,7 +245,34 @@
         event.preventDefault(); // Mencegah form dari pengiriman default
         LoginUser(); // Panggil fungsi LoginUser
     });
-   </script>
+   </script> -->
+   <script>
+    async function submitForm(event) {
+      event.preventDefault(); // Mencegah form dari pengiriman default
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch('/api/getCredentials');
+        if (!response.ok) {
+          throw new Error('Failed to fetch credentials');
+        }
+        const credentials = await response.json();
+        
+        // Mengecek apakah kredensial yang dimasukkan pengguna benar
+        const isValidCredential = credentials.some(cred => cred.username === username && cred.password === password);
+        if (isValidCredential) {
+          // Redirect ke halaman lain jika login berhasil
+          window.location.href = "https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec"; // Ganti dengan URL yang diinginkan
+        } else {
+          document.getElementById("errorMessage").innerHTML = "Invalid username or password.";
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById("errorMessage").innerHTML = "Failed to login. Please try again later.";
+      }
+    }
+  </script>
 </body>
 
 </html>
