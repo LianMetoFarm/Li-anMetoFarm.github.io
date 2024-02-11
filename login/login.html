@@ -10,7 +10,7 @@
     <ul id="dataList"></ul>
 
     <script>
-        fetch('/data')
+        fetch('/login')
             .then(response => response.json())
             .then(data => {
                 const dataList = document.getElementById('dataList');
