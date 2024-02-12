@@ -159,9 +159,11 @@
 </head>
 
 <body>
+  <h1>Data from Google Sheets</h1>
+  <ul id="data-list">Test</ul>
   <div class="wrapper">
     <div class="form-wrapper sign-in">
-      <form id="LoginUser">
+      <form action="">
         <h2>Login</h2>
         <div class="input-group">
           <input type="text" id="username" required>
@@ -243,6 +245,7 @@
         .then(response => response.json())
         .then(data => {
           const values = data.values;
+	  const dataList = document.getElementById('data-list');
           const matchedUser = values.find(row => row[0] === username && row[1] === password);
 
           if (matchedUser) {
