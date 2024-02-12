@@ -1,75 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data from Google Sheets</title>
-    <script src="https://apis.google.com/js/api.js"></script>
-<!--      <script>
-        window.location.href = "login.html";
-    
-          function authenticate() {
-            return gapi.auth2.getAuthInstance()
-                .signIn({scope: "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/spreadsheets.readonly"})
-                .then(function() { console.log("Sign-in successful"); },
-                      function(err) { console.error("Error signing in", err); });
-          }
-          function loadClient() {
-            gapi.client.setApiKey("./client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json");
-            return gapi.client.load("https://sheets.googleapis.com/$discovery/rest?version=v4")
-                .then(function() { console.log("GAPI client loaded for API"); },
-                      function(err) { console.error("Error loading GAPI client for API", err); });
-          }
-          // Make sure the client is loaded and sign-in is complete before calling this method.
-          function execute() {
-            return gapi.client.sheets.spreadsheets.values.batchGet({
-              "spreadsheetId": "1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM",
-              "dateTimeRenderOption": "FORMATTED_STRING",
-              "majorDimension": "DIMENSION_UNSPECIFIED",
-              "ranges": [
-                "A2:B"
-              ],
-              "valueRenderOption": "FORMATTED_VALUE"
-            })
-                .then(function(response) {
-                        // Handle the results here (response.result has the parsed body).
-                        console.log("Response", response);
-                      },
-                      function(err) { console.error("Execute error", err); });
-          }
-          gapi.load("client:auth2", function() {
-            gapi.auth2.init({client_id: "1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com"});
-          });
-    </script> -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- CSS Styles -->
+  <style>
+    /* CSS Styles Go Here */
+  </style>
 </head>
+
 <body>
-    <h1>Data from Google Sheets</h1>
-    <ul id="data-list">Test</ul>
+  <div class="wrapper">
+    <div class="form-wrapper sign-in">
+      <form id="loginForm">
+        <h2>Login</h2>
+        <div class="input-group">
+          <input type="text" id="username" required>
+          <label for="username">Username</label>
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" required>
+          <label for="password">Password</label>
+        </div>
+        <div class="remember">
+          <label><input type="checkbox"> Remember me</label>
+        </div>
+        <button type="submit" value="Login" onclick="LoginUser()">Login</button>
+        <!-- Menambahkan div untuk menampilkan pesan kesalahan -->
+        <div id="errorMessage"></div>
+        <div class="signUp-link">
+          <p>Don't have an account? <a href="#" class="signUpBtn-link">Sign Up</a></p>
+        </div>
+      </form>
+    </div>
 
-    <script>
-        // ID dari Spreadsheet Google Anda
-        const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
+    <div class="form-wrapper sign-up">
+      <form action="">
+        <h2>Sign Up</h2>
+        <div class="input-group">
+          <input type="text" required>
+          <label for="">Username</label>
+        </div>
+        <div class="input-group">
+          <input type="email" required>
+          <label for="">Email</label>
+        </div>
+        <div class="input-group">
+          <input type="password" required>
+          <label for="">Password</label>
+        </div>
+        <div class="remember">
+          <label><input type="checkbox"> I agree to the terms & conditions</label>
+        </div>
+        <button type="submit">Sign Up</button>
+        <div class="signUp-link">
+          <p>Already have an account? <a href="#" class="signInBtn-link">Sign In</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
 
-        // Range data yang ingin Anda ambil
-        const range = 'Users!A1:B';
+  <!-- JavaScript -->
+  <script>
+    // JavaScript code for Google Sheets API and Login
+    const signInBtnLink = document.querySelector('.signInBtn-link');
+    const signUpBtnLink = document.querySelector('.signUpBtn-link');
+    const wrapper = document.querySelector('.wrapper');
 
-        // API endpoint
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc`;
+    signUpBtnLink.addEventListener('click', () => {
+      wrapper.classList.toggle('active');
+    });
 
-        // Ambil data dari Google Sheets API
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                const values = data.values;
-                const dataList = document.getElementById('data-list');
+    signInBtnLink.addEventListener('click', () => {
+      wrapper.classList.toggle('active');
+    });
 
-                values.forEach(row => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = row.join(' | ');
-                    dataList.appendChild(listItem);
-                });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    </script>
+    function LoginUser() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+
+      // ID dari Spreadsheet Google Anda
+      const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
+
+      // Range data yang ingin Anda ambil
+      const range = 'Users!A1:B';
+
+      // API endpoint
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc`;
+
+      // Ambil data dari Google Sheets API
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const values = data.values;
+          const matchedUser = values.find(row => row[0] === username && row[1] === password);
+
+          if (matchedUser) {
+            // Jika user ditemukan, redirect ke halaman dashboard
+            window.location.href = '/dashboard.html';
+          } else {
+            // Jika user tidak ditemukan, tampilkan pesan error
+            errorMessage.textContent = 'Username or password is incorrect.';
+          }
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }
+  </script>
 </body>
+
 </html>
