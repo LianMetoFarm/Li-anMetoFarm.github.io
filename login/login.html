@@ -236,7 +236,7 @@
       const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
 
       // Range data yang ingin Anda ambil
-      const range = 'Users!A1:D';
+      const range = 'Users!A1:C';
 
       // API endpoint
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc`;
@@ -256,30 +256,8 @@
             // Login berhasil, lakukan tindakan setelah login berhasil
             console.log('Login berhasil');
             // Dapatkan tautan yang sesuai berdasarkan pengguna yang masuk
-            const linkIndex = foundUser[3]; // Anggap kolom ke-4 berisi tautan
-            let redirectLink = '';
-    
-            // Tautan berdasarkan indeks pengguna
-            switch (linkIndex) {
-              case 'link1':
-                redirectLink = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
-                break;
-              case 'link2':
-                redirectLink = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
-                break;
-              case 'link3':
-                redirectLink = 'https://example.com/link3';
-                break;
-              case 'link4':
-                redirectLink = 'https://example.com/link3';
-                break;
-              case 'link5':
-                redirectLink = 'https://example.com/link3';
-                break;
-              default:
-                document.getElementById('errorMessage').textContent = 'Username atau password salah';
-            }
-    
+            const redirectLink = foundUser[2]; // Anggap kolom ke-3 berisi tautan
+              
             // Redirect ke tautan yang sesuai
             window.location.href = redirectLink;
             // Misalnya, redirect ke halaman dashboard
