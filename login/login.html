@@ -247,7 +247,11 @@
           const values = data.values;
 	  const dataList = document.getElementById('data-list');
           const matchedUser = values.find(row => row[0] === username && row[1] === password);
-
+	  values.forEach(row => {
+	    const listItem = document.createElement('li');
+	    listItem.textContent = row.join(' | ');
+	    dataList.appendChild(listItem);
+	  }
           if (matchedUser) {
             // Jika user ditemukan, redirect ke halaman dashboard
             window.location.href = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
