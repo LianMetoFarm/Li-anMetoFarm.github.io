@@ -236,7 +236,7 @@
       const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
 
       // Range data yang ingin Anda ambil
-      const range = 'Users!A1:B';
+      const range = 'Users!A1:C';
 
       // API endpoint
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc`;
@@ -255,8 +255,35 @@
           if (foundUser) {
             // Login berhasil, lakukan tindakan setelah login berhasil
             console.log('Login berhasil');
+            // Dapatkan tautan yang sesuai berdasarkan pengguna yang masuk
+            const linkIndex = foundUser[3]; // Anggap kolom ke-4 berisi tautan
+            let redirectLink = '';
+    
+            // Tautan berdasarkan indeks pengguna
+            switch (linkIndex) {
+              case 'gudangP':
+                redirectLink = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
+                break;
+              case 'kandang1':
+                redirectLink = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
+                break;
+              case 'kandang2':
+                redirectLink = 'https://example.com/link3';
+                break;
+              case 'kandang3':
+                redirectLink = 'https://example.com/link3';
+                break;
+              case 'kandang4':
+                redirectLink = 'https://example.com/link3';
+                break;
+              default:
+                redirectLink = 'https://example.com/default';
+            }
+    
+            // Redirect ke tautan yang sesuai
+            window.location.href = redirectLink;
             // Misalnya, redirect ke halaman dashboard
-            window.location.href = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
+            //window.location.href = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
           } else {
             // Login gagal, tampilkan pesan kesalahan
             document.getElementById('errorMessage').textContent = 'Username atau password salah';
