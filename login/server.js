@@ -1,36 +1,5 @@
-const express = require('express');
-const { google } = require('googleapis');
-const app = express();
-const port = 3000;
+//AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc
 
-// Load credentials from a JSON file
-const credentials = require('./client_secret_1048826291956-tnlbo6ihcpflq5osigq53fh6vpl6jfva.apps.googleusercontent.com.json');
-
-// Create an OAuth2 client with the given credentials
-const { client_secret, client_id, redirect_uris } = credentials.web;
-const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
-
-// Set up Google Sheets API
-const sheets = google.sheets({ version: 'v4', auth: oAuth2Client });
-const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
-const range = 'Users!A1:B';
-
-app.get('/getData', async (req, res) => {
-    try {
-        const response = await sheets.spreadsheets.values.get({
-            spreadsheetId,
-            range,
-        });
-        const data = response.data.values;
-        res.json(data);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
-});
 // const { google } = require('googleapis');
 // const fs = require('fs');
 // const readline = require('readline');
