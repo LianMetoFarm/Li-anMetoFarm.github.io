@@ -261,23 +261,23 @@
     
             // Tautan berdasarkan indeks pengguna
             switch (linkIndex) {
-              case 'G1':
+              case 'link1':
                 redirectLink = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
                 break;
-              case 'G2':
+              case 'link2':
                 redirectLink = 'https://script.google.com/macros/s/AKfycbwT5nINMK2KR_AdIYgxMXNxtRU8eBymq6a0mLnKHRP-mpu3bg5E1Gzq6PFVm-FbZea2/exec';
                 break;
-              case 'G3':
+              case 'link3':
                 redirectLink = 'https://example.com/link3';
                 break;
-              case 'G4':
+              case 'link4':
                 redirectLink = 'https://example.com/link3';
                 break;
-              case 'G5':
+              case 'link5':
                 redirectLink = 'https://example.com/link3';
                 break;
               default:
-                redirectLink = 'https://example.com/default';
+                document.getElementById('errorMessage').textContent = 'Username atau password salah';
             }
     
             // Redirect ke tautan yang sesuai
