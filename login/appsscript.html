@@ -3,30 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Apps Script Content</title>
+  <title>Fullscreen Iframe</title>
+  <style>
+    /* CSS untuk membuat iframe fullscreen */
+    body, html, #iframe-container {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none; /* Untuk menghilangkan border */
+    }
+  </style>
 </head>
 <body>
-  <div id="content"></div>
-  <iframe src="https://script.google.com/macros/s/AKfycbxUstAkKGd8UuMixGyQM0rJh5zTlacu9n5_x5SxtSSsZA7K_YxswZcmRAkksLnrAozu/exec" width="600" height="400"></iframe>
-
-  <script>
-    // Fungsi untuk melakukan permintaan HTTP GET
-    function fetchContent() {
-      // URL dari Google Apps Script
-      var url = 'https://script.google.com/macros/s/AKfycbxUstAkKGd8UuMixGyQM0rJh5zTlacu9n5_x5SxtSSsZA7K_YxswZcmRAkksLnrAozu/exec';
-      
-      // Melakukan permintaan HTTP GET
-      fetch(url)
-        .then(response => response.text()) // Mendapatkan respons sebagai teks
-        .then(html => {
-          // Menampilkan respons di dalam elemen dengan id "content"
-          document.getElementById('content').innerHTML = html;
-        })
-        .catch(error => console.error('Error fetching content:', error));
-    }
-
-    // Memanggil fungsi fetchContent saat halaman dimuat
-    fetchContent();
-  </script>
+  <div id="iframe-container">
+    <iframe src="https://script.google.com/macros/s/AKfycbxUstAkKGd8UuMixGyQM0rJh5zTlacu9n5_x5SxtSSsZA7K_YxswZcmRAkksLnrAozu/exec"></iframe>
+  </div>
 </body>
 </html>
