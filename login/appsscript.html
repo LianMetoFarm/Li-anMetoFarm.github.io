@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Integrasi Google Apps Script</title>
+</head>
+<body>
+    <h1>Panggil Google Apps Script</h1>
+    <button onclick="panggilScript()">Panggil Script</button>
+
+    <script>
+        function panggilScript() {
+            fetch('https://script.google.com/macros/s/AKfycbxUstAkKGd8UuMixGyQM0rJh5zTlacu9n5_x5SxtSSsZA7K_YxswZcmRAkksLnrAozu/exec')
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    // Lakukan sesuatu dengan respon dari script
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
