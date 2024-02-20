@@ -1,4 +1,7 @@
 // script.js
+require('dotenv').config();
+
+const apiKey = process.env.API_KEY;
 
 // JavaScript code untuk style
 const signInBtnLink = document.querySelector('.signInBtn-link');
