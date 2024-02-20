@@ -6,9 +6,6 @@
   <title>Recording Gudang Pakan</title>
   <!-- Tautan Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Tautan Bootstrap JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     /* CSS untuk membuat iframe fullscreen */
     body, html, #iframe-container {
@@ -16,7 +13,6 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
     }
     #iframe-container iframe {
       width: 100%;
@@ -27,10 +23,16 @@
       position: absolute;
       top: 10px;
       right: 10px;
+      z-index: 9999; /* Pastikan tombol logout ada di atas elemen lain */
     }
   </style>
 </head>
 <body>
+  <!-- Tombol Logout -->
+  <button type="button" class="btn btn-danger logout-btn" data-bs-toggle="modal" data-bs-target="#logoutModal">
+    Logout
+  </button>
+
   <!-- Modal Konfirmasi Logout -->
   <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -54,8 +56,6 @@
     <iframe src="https://script.google.com/macros/s/AKfycbx6Q1ueVk1QPae1e1EEaHm-mTZ4jFgKyxibwyFn-Rw/exec"></iframe>
   </div>
 
-  <!-- Tautan Bootstrap JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Sertakan file JavaScript -->
   <script src="logout.js"></script>
 </body>
