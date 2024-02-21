@@ -1,13 +1,4 @@
 RewriteEngine On
-
-# Redirect dari root ke halaman profile
-RewriteRule ^$ /profile/index.html [R=301,L]
-
-# Redirect dari /profile/ ke /profile/index.html
-RewriteRule ^profile/$ /profile/index.html [R=301,L]
-
-# Redirect dari /login/ ke /login/login.html
-RewriteRule ^login/$ /login/login.html [R=301,L]
-
-# Redirect dari /input_recording/ ke /profile/index.html
-RewriteRule ^input_recording/$ /profile/index.html [R=301,L]
+RewriteRule ^profile/$ /profile/index.html [L]
+RewriteRule ^login/$ /login/login.html [L]
+RewriteRule ^input_recording/$ /profile/index.html [L]
