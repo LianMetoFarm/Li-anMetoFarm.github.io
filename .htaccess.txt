@@ -1,5 +1,16 @@
 RewriteEngine On
-RewriteRule ^/$ /profile/index.html [R=301,L]
+
+# Redirect dari root ke halaman profile
+RewriteRule ^$ /profile/index.html [R=301,L]
+
+# Redirect dari alamat utama ke halaman profile
+RewriteRule ^https://lianmetofarm.github.io/$ /profile/index.html [R=301,L]
+
+# Redirect dari /profile/ ke /profile/index.html
 RewriteRule ^profile/$ /profile/index.html [R=301,L]
+
+# Redirect dari /login/ ke /login/login.html
 RewriteRule ^login/$ /login/login.html [R=301,L]
+
+# Redirect dari /input_recording/ ke /profile/index.html
 RewriteRule ^input_recording/$ /profile/index.html [R=301,L]
