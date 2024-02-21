@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var logoutConfirmButton = document.getElementById('logoutConfirmBtn');
     var cancelButton = document.querySelector('[data-bs-dismiss="modal"]'); // Menemukan tombol Batal pada modal
     var myModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+    var refreshButton = document.querySelector('.refresh-btn'); //refres
 
     logoutButton.addEventListener('click', function() {
       // Tampilkan modal konfirmasi
@@ -25,6 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
       logoutButton.focus();
     });
 
+    refreshButton.addEventListener('click', function() {
+        // Memuat ulang halaman saat tombol refresh ditekan
+        window.location.reload();
+    });
+
     // Tambahkan event listener untuk menutup modal jika tekan tombol ESC
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
@@ -35,12 +41,3 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
 });
-
-document.addEventListener("DOMContentLoaded", function() {
-    var refreshButton = document.querySelector('.refresh-btn');
-  
-    refreshButton.addEventListener('click', function() {
-      // Lakukan tindakan refresh di sini
-      location.reload(); // Ini akan memuat ulang halaman
-    });
-  });
