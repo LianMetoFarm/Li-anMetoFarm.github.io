@@ -25,9 +25,19 @@
       right: 30px;
       z-index: 9999; /* Pastikan tombol logout ada di atas elemen lain */
     }
+    .refresh-btn {
+      position: absolute;
+      top: 20px;
+      left: 70px; /* Jarak dari kiri */
+      z-index: 9999; /* Pastikan tombol refresh ada di atas elemen lain */
+    }
   </style>
 </head>
 <body>
+  <!-- Tombol Refresh -->
+  <button type="button" class="btn btn-primary refresh-btn">
+    <i class="fas fa-sync-alt"></i>
+  </button>
   <!-- Tombol Logout -->
   <button type="button" class="btn btn-danger logout-btn" data-bs-toggle="modal" data-bs-target="#logoutModal">
     Logout
