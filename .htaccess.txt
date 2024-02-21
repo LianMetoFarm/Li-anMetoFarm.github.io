@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^/$ /profile/index.html [R=301,L]
+RewriteRule ^profile/$ /profile/index.html [R=301,L]
+RewriteRule ^login/$ /login/login.html [R=301,L]
+RewriteRule ^input_recording/$ /profile/index.html [R=301,L]
