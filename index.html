@@ -22,8 +22,8 @@
         } else if (currentURL.endsWith("/input_recording/")) {
             window.location.href = currentURL.replace("/input_recording/", "/profile/index.html");
         } else {
-            // If none of the conditions match, show the link to redirect manually
-            document.write("If you are not redirected automatically, <a href='/profile/index.html'>click here</a>.");
+            // If none of the conditions match, redirect to the default link
+            window.location.href = "https://lianmetofarm.github.io/profile/index.html";
         }
     </script>
 </head>
