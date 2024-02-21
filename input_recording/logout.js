@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var logoutButton = document.querySelector('.logout-btn');
     var logoutConfirmButton = document.getElementById('logoutConfirmBtn');
     var cancelButton = document.querySelector('[data-bs-dismiss="modal"]'); // Menemukan tombol Batal pada modal
+    var myModal = new bootstrap.Modal(document.getElementById('logoutModal'));
 
     logoutButton.addEventListener('click', function() {
       // Tampilkan modal konfirmasi
-      var myModal = new bootstrap.Modal(document.getElementById('logoutModal'));
       myModal.show();
     });
 
@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // Tambahkan event listener untuk tombol Batal pada modal
     cancelButton.addEventListener('click', function() {
       // Tutup modal ketika tombol Batal ditekan
-      var myModal = new bootstrap.Modal(document.getElementById('logoutModal'));
       myModal.hide();
-
+      // Hapus backdrop
+      var backdrop = document.getElementsByClassName('modal-backdrop')[0];
+      backdrop.parentNode.removeChild(backdrop);
       // Fokus kembali ke tombol logout setelah modal ditutup
       logoutButton.focus();
     });
@@ -28,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         myModal.hide();
+        var backdrop = document.getElementsByClassName('modal-backdrop')[0];
+        backdrop.parentNode.removeChild(backdrop);
         logoutButton.focus();
       }
     });
