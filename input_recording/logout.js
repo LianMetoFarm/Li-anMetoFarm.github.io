@@ -35,3 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    var refreshButton = document.querySelector('.refresh-btn');
+  
+    refreshButton.addEventListener('click', function() {
+      // Lakukan tindakan refresh di sini
+      location.reload(); // Ini akan memuat ulang halaman
+    });
+  });
