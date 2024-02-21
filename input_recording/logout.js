@@ -19,5 +19,16 @@ document.addEventListener("DOMContentLoaded", function() {
       // Tutup modal ketika tombol Batal ditekan
       var myModal = new bootstrap.Modal(document.getElementById('logoutModal'));
       myModal.hide();
+
+      // Fokus kembali ke tombol logout setelah modal ditutup
+      logoutButton.focus();
+    });
+
+    // Tambahkan event listener untuk menutup modal jika tekan tombol ESC
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        myModal.hide();
+        logoutButton.focus();
+      }
     });
 });
