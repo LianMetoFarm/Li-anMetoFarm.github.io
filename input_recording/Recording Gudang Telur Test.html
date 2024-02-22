@@ -65,6 +65,30 @@
   <div id="iframe-container">
     <iframe src="https://script.google.com/macros/s/AKfycbyHGnU--ka-XS2obacyfZX7y-bDE3f6g7YOgFxrjw/exec"></iframe>
   </div>
+  <!-- Tambahan tombol untuk mengonfirmasi tombol input di dalam iframe -->
+  <button type="button" class="btn btn-success" id="confirmIframeButton">
+    Konfirmasi Tombol di Iframe
+  </button>
+
+  <script>
+    // Menunggu sampai halaman dimuat sepenuhnya
+    document.addEventListener("DOMContentLoaded", function() {
+      // Mendapatkan referensi ke iframe
+      var iframe = document.querySelector('iframe');
+
+      // Menambahkan event listener ke tombol konfirmasi
+      document.getElementById('confirmIframeButton').addEventListener('click', function() {
+        // Menunggu sampai konten iframe dimuat
+        iframe.onload = function() {
+          // Mendapatkan referensi ke tombol input di dalam iframe
+          var inputButton = iframe.contentWindow.document.querySelector('#logoutConfirmBtn');
+
+          // Memicu klik pada tombol input di dalam iframe
+          inputButton.click();
+        };
+      });
+    });
+  </script>
 
   <!-- Sertakan tautan Bootstrap JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
