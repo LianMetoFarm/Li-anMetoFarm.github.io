@@ -190,20 +190,28 @@
   <!--   <script src="script.js"></script> -->
 
   <script>
+    // JavaScript code untuk style
+    const signInBtnLink = document.querySelector('.signInBtn-link');
+    const wrapper = document.querySelector('.wrapper');
+  
+    signInBtnLink.addEventListener('click', () => {
+      wrapper.classList.toggle('active');
+    });
+  
     //proses login
     function checkLogin() {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
-
+  
       // ID dari Spreadsheet Google Anda
       const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
-
+  
       // Range data yang ingin Anda ambil
       const range = 'Users!A1:C';
-
+  
       // API endpoint
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc`;
-
+  
       // Ambil data dari Google Sheets API
       fetch(url)
         .then(response => {
@@ -218,10 +226,11 @@
           if (foundUser) {
             // Login berhasil, lakukan tindakan setelah login berhasil
             console.log('Login berhasil');
-            // Simpan status login pengguna di session storage
-            sessionStorage.setItem('isLoggedIn', 'true');
-            // Redirect ke halaman tujuan
-            redirectToTargetPage();
+            // Dapatkan tautan yang sesuai berdasarkan pengguna yang masuk
+            const redirectLink = foundUser[2]; // Anggap kolom ke-3 berisi tautan
+            
+            // Redirect ke tautan yang sesuai
+            window.location.href = redirectLink;
           } else {
             // Login gagal, tampilkan pesan kesalahan
             document.getElementById('errorMessage').textContent = 'Username atau password salah';
@@ -233,34 +242,13 @@
           document.getElementById('errorMessage').textContent = 'Terjadi kesalahan saat mengambil data.';
         });
     }
-
-    // Fungsi untuk mengarahkan pengguna ke halaman tujuan setelah login
-    function redirectToTargetPage() {
-      // Ganti dengan URL halaman tujuan Anda
-      const targetPageUrl = 'https://lianmetofarm.github.io/input_recording/Recording%20Gudang%20Pakan.html';
-      window.location.href = targetPageUrl;
-    }
-
-    // Pada halaman tujuan, periksa apakah pengguna telah login sebelumnya
-    function checkIfLoggedIn() {
-      const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-      const username = sessionStorage.getItem('username');
-
-      // Menampilkan nilai session storage
-      console.log('Is Logged In:', isLoggedIn);
-      console.log('Username:', username);
-      
-      if (!isLoggedIn || isLoggedIn !== 'true') {
-        // Jika pengguna belum login, alihkan kembali ke halaman login
-        redirectToLoginPage();
+  
+    // Fungsi untuk memeriksa apakah tombol "Enter" ditekan
+    function checkEnter(event) {
+      if (event.keyCode === 13) {
+        // Jika tombol yang ditekan adalah "Enter", panggil fungsi checkLogin()
+        checkLogin();
       }
-    }
-
-    // Fungsi untuk mengalihkan pengguna kembali ke halaman login
-    function redirectToLoginPage() {
-      // Ganti dengan URL halaman login Anda
-      const loginPageUrl = 'https://lianmetofarm.github.io/login/login.html';
-      window.location.href = loginPageUrl;
     }
   </script>
 </body>
