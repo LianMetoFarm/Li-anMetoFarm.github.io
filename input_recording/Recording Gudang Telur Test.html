@@ -31,6 +31,12 @@
       right: 120px; /* Jarak dari kiri */
       z-index: 9999; /* Pastikan tombol refresh ada di atas elemen lain */
     }
+    .input-btn {
+      position: absolute;
+      top: 20px;
+      right: 220px; /* Jarak dari kiri */
+      z-index: 9999; /* Pastikan tombol refresh ada di atas elemen lain */
+    }
   </style>
 </head>
 <body>
@@ -66,7 +72,7 @@
     <iframe src="https://script.google.com/macros/s/AKfycbyHGnU--ka-XS2obacyfZX7y-bDE3f6g7YOgFxrjw/exec"></iframe>
   </div>
   <!-- Tambahan tombol untuk mengonfirmasi tombol input di dalam iframe -->
-  <button type="button" class="btn btn-success" id="confirmIframeButton">
+  <button type="button" class="btn btn-success input-btn" id="confirmIframeButton">
     Konfirmasi Tombol di Iframe
   </button>
 
