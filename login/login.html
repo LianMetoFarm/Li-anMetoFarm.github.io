@@ -1,265 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <!-- Link ke file CSS terpisah -->
-  <link rel="stylesheet" href="style.css">
-  <!-- Link ke Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    /* CSS Style */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: #000;
-    }
-
-    .wrapper {
-      position: relative;
-      width: 400px;
-      height: 500px;
-      background: #000;
-      box-shadow: 0 0 50px #0ef;
-      border-radius: 20px;
-      padding: 40px;
-      overflow: hidden;
-    }
-
-    .wrapper:hover {
-      animation: animate 1s linear infinite;
-    }
-
-    @keyframes animate {
-      100% {
-        filter: hue-rotate(360deg);
-      }
-    }
-
-    .form-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      transition: 1s ease-in-out;
-    }
-
-    .wrapper.active .form-wrapper.sign-in {
-      transform: translateY(-450px);
-    }
-
-    .wrapper .form-wrapper.sign-up {
-      position: absolute;
-      top: 450px;
-      left: 0;
-    }
-
-    .wrapper.active .form-wrapper.sign-up {
-      transform: translateY(-450px);
-    }
-
-    h2 {
-      font-size: 30px;
-      color: #fff;
-      text-align: center;
-    }
-
-    .input-group {
-      position: relative;
-      margin: 30px 0;
-      border-bottom: 2px solid #fff;
-    }
-
-    .input-group label {
-      position: absolute;
-      top: 50%;
-      left: 5px;
-      transform: translateY(-50%);
-      font-size: 16px;
-      color: #fff;
-      pointer-events: none;
-      transition: .5s;
-    }
-
-    .input-group input {
-      width: 320px;
-      height: 40px;
-      font-size: 16px;
-      color: #fff;
-      padding: 0 5px;
-      background: transparent;
-      border: none;
-      outline: none;
-    }
-
-    .input-group input:focus~label,
-    .input-group input:valid~label {
-      top: -5px;
-    }
-
-    .remember {
-      margin: -5px 0 15px 5px;
-    }
-
-    .remember label {
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .remember label input {
-      accent-color: #0ef;
-    }
-
-    button {
-      position: relative;
-      width: 100%;
-      height: 40px;
-      background: #0ef;
-      box-shadow: 0 0 10px #0ef;
-      font-size: 16px;
-      color: #000;
-      font-weight: 500;
-      cursor: pointer;
-      border-radius: 30px;
-      border: none;
-      outline: none;
-    }
-
-    .signUp-link {
-      font-size: 14px;
-      text-align: center;
-      margin: 15px 0;
-    }
-
-    .signUp-link p {
-      color: #fff;
-    }
-
-    .signUp-link p a {
-      color: #0ef;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .signUp-link p a:hover {
-      text-decoration: underline;
-    }
-    #errorMessage {
-      font-size: 15px;
-      color: #fff;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
 </head>
-
 <body>
-  <!-- Form Login -->
-  <div class="wrapper">
-    <div class="form-wrapper sign-in">
-      <form id="loginForm">
-        <h2>Login</h2>
-        <div class="input-group">
-          <input type="text" id="username" required>
-          <label for="username">Username</label>
-        </div>
-        <div class="input-group">
-          <input type="password" id="password" required onkeypress="checkEnter(event)">
-          <label for="password">Password</label>
-        </div>
-        <button type="button" onclick="checkLogin()">Login</button>
-        <!-- Menambahkan div untuk menampilkan pesan kesalahan -->
-        <div id="errorMessage"></div>
-      </form>
+
+<div>
+  <h2>Login</h2>
+  <form onsubmit="event.preventDefault(); checkLogin();">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
     </div>
-  </div>
-  <!--   <script src="script.js"></script> -->
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Login</button>
+    <p id="errorMessage" style="color: red;"></p>
+  </form>
+</div>
 
-  <script>
-    //proses login
-    function checkLogin() {
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
+<script>
+  //proses login
+  function checkLogin() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-      // ID dari Spreadsheet Google Anda
-      const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
+    // ID dari Spreadsheet Google Anda
+    const spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
 
-      // Range data yang ingin Anda ambil
-      const range = 'Users!A1:C';
+    // Range data yang ingin Anda ambil
+    const range = 'Users!A1:C';
 
-      // API endpoint
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc`;
+    // API endpoint
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc`;
 
-      // Ambil data dari Google Sheets API
-      fetch(url)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          const users = data.values;
-          const foundUser = users.find(user => user[0] === username && user[1] === password);
-          if (foundUser) {
-            // Login berhasil, lakukan tindakan setelah login berhasil
-            console.log('Login berhasil');
-            // Simpan status login pengguna di session storage
-            sessionStorage.setItem('isLoggedIn', 'true');
-            // Redirect ke halaman tujuan
-            redirectToTargetPage();
-          } else {
-            // Login gagal, tampilkan pesan kesalahan
-            document.getElementById('errorMessage').textContent = 'Username atau password salah';
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching data:', error);
-          // Tampilkan pesan kesalahan jika terjadi kesalahan saat mengambil data
-          document.getElementById('errorMessage').textContent = 'Terjadi kesalahan saat mengambil data.';
-        });
+    // Ambil data dari Google Sheets API
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const users = data.values;
+        const foundUser = users.find(user => user[0] === username && user[1] === password);
+        if (foundUser) {
+          // Login berhasil, lakukan tindakan setelah login berhasil
+          console.log('Login berhasil');
+          // Simpan status login pengguna di session storage
+          sessionStorage.setItem('isLoggedIn', 'true');
+          // Redirect ke halaman tujuan
+          redirectToTargetPage();
+        } else {
+          // Login gagal, tampilkan pesan kesalahan
+          document.getElementById('errorMessage').textContent = 'Username atau password salah';
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        // Tampilkan pesan kesalahan jika terjadi kesalahan saat mengambil data
+        document.getElementById('errorMessage').textContent = 'Terjadi kesalahan saat mengambil data.';
+      });
+  }
+
+  // Fungsi untuk mengarahkan pengguna ke halaman tujuan setelah login
+  function redirectToTargetPage() {
+    // Ganti dengan URL halaman tujuan Anda
+    const targetPageUrl = 'https://lianmetofarm.github.io/input_recording/Recording%20Gudang%20Pakan.html';
+    window.location.href = targetPageUrl;
+  }
+
+  // Pada halaman tujuan, periksa apakah pengguna telah login sebelumnya
+  function checkIfLoggedIn() {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    if (!isLoggedIn || isLoggedIn !== 'true') {
+      // Jika pengguna belum login, alihkan kembali ke halaman login
+      redirectToLoginPage();
     }
+  }
 
-    // Fungsi untuk mengarahkan pengguna ke halaman tujuan setelah login
-    function redirectToTargetPage() {
-      // Ganti dengan URL halaman tujuan Anda
-      const targetPageUrl = 'https://lianmetofarm.github.io/input_recording/Recording%20Gudang%20Pakan.html';
-      window.location.href = targetPageUrl;
-    }
+  // Fungsi untuk mengalihkan pengguna kembali ke halaman login
+  function redirectToLoginPage() {
+    // Ganti dengan URL halaman login Anda
+    const loginPageUrl = 'https://lianmetofarm.github.io/login/login.html';
+    window.location.href = loginPageUrl;
+  }
+</script>
 
-    // Pada halaman tujuan, periksa apakah pengguna telah login sebelumnya
-    function checkIfLoggedIn() {
-      const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-      if (!isLoggedIn || isLoggedIn !== 'true') {
-        // Jika pengguna belum login, alihkan kembali ke halaman login
-        redirectToLoginPage();
-      }
-    }
-
-    // Fungsi untuk mengalihkan pengguna kembali ke halaman login
-    function redirectToLoginPage() {
-      // Ganti dengan URL halaman login Anda
-      const loginPageUrl = 'https://lianmetofarm.github.io/login/login.html';
-      window.location.href = loginPageUrl;
-    }
-  </script>
 </body>
-
 </html>
-    
-
-  <!-- Script -->
