@@ -244,6 +244,12 @@
     // Pada halaman tujuan, periksa apakah pengguna telah login sebelumnya
     function checkIfLoggedIn() {
       const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+      const username = sessionStorage.getItem('username');
+
+      // Menampilkan nilai session storage
+      console.log('Is Logged In:', isLoggedIn);
+      console.log('Username:', username);
+      
       if (!isLoggedIn || isLoggedIn !== 'true') {
         // Jika pengguna belum login, alihkan kembali ke halaman login
         redirectToLoginPage();
