@@ -81,14 +81,14 @@
     document.addEventListener("DOMContentLoaded", function() {
       // Mendapatkan referensi ke iframe
       var iframe = document.querySelector('iframe');
-
+  
       // Menambahkan event listener ke tombol konfirmasi
       document.getElementById('confirmIframeButton').addEventListener('click', function() {
         // Menunggu sampai konten iframe dimuat
         iframe.onload = function() {
           // Mendapatkan referensi ke tombol input di dalam iframe
-          var inputButton = iframe.contentWindow.document.querySelector('#logoutConfirmBtn');
-
+          var inputButton = iframe.contentWindow.document.querySelector('#tambah');
+  
           // Memicu klik pada tombol input di dalam iframe
           inputButton.click();
         };
