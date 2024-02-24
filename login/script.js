@@ -30,7 +30,7 @@ function logout() {
 // Check login status and redirect to login page if not logged in
 function checkLoginStatus() {
   if (!sessionStorage.getItem("loggedIn")) {
-    window.location.href = "/login/login.html";
+    window.location.href = "/profile/index.html";
   }
 }
 
