@@ -13,6 +13,7 @@ function login() {
       const found = rows.find(row => row[0] === username && row[1] === password);
       if (found) {
         alert("Login successful!");
+        successfulLogin();
         window.location.href = "dashboard.html"; // Redirect to dashboard
       } else {
         alert("Invalid username or password!");
@@ -28,13 +29,12 @@ function logout() {
   window.location.href = "login.html"; 
 }
 
-// Prevent back navigation to dashboard after logout
-window.onload = function () {
-  if (sessionStorage.getItem("loggedIn")) {
-    // If logged in, redirect to dashboard
-    window.location.href = "dashboard.html";
+// Check login status and redirect to login page if not logged in
+function checkLoginStatus() {
+  if (!sessionStorage.getItem("loggedIn")) {
+    window.location.href = "login.html";
   }
-};
+}
 
 // Set session storage after successful login
 function successfulLogin() {
