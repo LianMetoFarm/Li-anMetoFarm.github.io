@@ -3,7 +3,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc'
 
 # Google Sheets API credentials
 scope = ['https://spreadsheets.google.com/feeds',
@@ -14,7 +14,7 @@ gc = gspread.authorize(credentials)
 # Function to authenticate user
 def login(username, password):
     try:
-        sh = gc.open_by_key('YOUR_SPREADSHEET_ID')
+        sh = gc.open_by_key('1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM')
         worksheet = sh.get_worksheet(0)  # Change index if needed
         # Example logic to check username and password in the sheet
         # If successful, return True
