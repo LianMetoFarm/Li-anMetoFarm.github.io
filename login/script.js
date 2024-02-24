@@ -24,13 +24,13 @@ function login() {
 
 function logout() {
   sessionStorage.clear(); // Clear session storage
-  window.location.href = "login.html"; // Redirect to login page
+  window.location.href = "/profile/index.html"; // Redirect to login page
 }
 
 // Check login status and redirect to login page if not logged in
 function checkLoginStatus() {
   if (!sessionStorage.getItem("loggedIn")) {
-    window.location.href = "login.html";
+    window.location.href = "/login/login.html";
   }
 }
 
