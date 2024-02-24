@@ -22,5 +22,21 @@ function login() {
 }
 
 function logout() {
-  window.location.href = "login.html"; // Redirect to login page
+  // Clear session storage to prevent back navigation to dashboard
+  sessionStorage.clear();
+  // Redirect to login page
+  window.location.href = "login.html"; 
+}
+
+// Prevent back navigation to dashboard after logout
+window.onload = function () {
+  if (sessionStorage.getItem("loggedIn")) {
+    // If logged in, redirect to dashboard
+    window.location.href = "dashboard.html";
+  }
+};
+
+// Set session storage after successful login
+function successfulLogin() {
+  sessionStorage.setItem("loggedIn", true);
 }
