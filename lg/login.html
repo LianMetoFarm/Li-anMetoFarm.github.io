@@ -218,6 +218,12 @@
     signInBtnLink.addEventListener('click', () => {
       wrapper.classList.toggle('active');
     });
+    // JavaScript code untuk menangani event keypress enter
+    function checkEnter(event) {
+      if (event.key === "Enter") {
+        login();
+      }
+    }
   </script>
   <!-- Sertakan file JavaScript -->
   <script src="script.js"></script>
