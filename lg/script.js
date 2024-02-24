@@ -13,8 +13,7 @@ function login() {
       const found = rows.find(row => row[0] === username && row[1] === password);
       if (found) {
         alert("Login successful!");
-        document.getElementById('loginForm').style.display = 'none';
-        document.getElementById('logoutBtn').style.display = 'block';
+        window.location.href = "dashboard.html"; // Redirect to dashboard
       } else {
         alert("Invalid username or password!");
       }
@@ -23,7 +22,5 @@ function login() {
 }
 
 function logout() {
-  document.getElementById('loginForm').reset();
-  document.getElementById('loginForm').style.display = 'block';
-  document.getElementById('logoutBtn').style.display = 'none';
+  window.location.href = "login.html"; // Redirect to login page
 }
