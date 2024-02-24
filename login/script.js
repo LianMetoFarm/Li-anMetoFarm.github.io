@@ -1,56 +1,41 @@
-// script.js
-require('dotenv').config();
+const apiKey = "AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc";
+const spreadsheetId = "1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM";
+const range = "Users!A:C"; // Adjust this according to your sheet structure
 
-const apiKey = process.env.API_KEY;
-
-// JavaScript code untuk style
-const signInBtnLink = document.querySelector('.signInBtn-link');
-//const signUpBtnLink = document.querySelector('.signUpBtn-link');
-const wrapper = document.querySelector('.wrapper');
-
-signInBtnLink.addEventListener('click', () => {
-  wrapper.classList.toggle('active');
-});
-
-signUpBtnLink.addEventListener('click', () => {
-  wrapper.classList.toggle('active');
-});
-
-//proses login
-function checkLogin() {
+function login() {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-
-  // API endpoint
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
-
-  // Ambil data dari Google Sheets API
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
+  
+  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`)
+    .then(response => response.json())
     .then(data => {
-      const users = data.values;
-      const foundUser = users.find(user => user[0] === username && user[1] === password);
-      if (foundUser) {
-        // Login berhasil, lakukan tindakan setelah login berhasil
-        console.log('Login berhasil');
-        // Dapatkan tautan yang sesuai berdasarkan pengguna yang masuk
-        const redirectLink = foundUser[2]; // Anggap kolom ke-3 berisi tautan
-
-        // Redirect ke tautan yang sesuai
-        window.location.href = redirectLink;
+      const rows = data.values;
+      const user = rows.find(row => row[0] === username && row[1] === password);
+      if (user) {
+        // alert("Login Berhasil!");
+        successfulLogin(user[2]); // Pass the dashboard link to successfulLogin
+        window.location.href = user[2]; // Redirect to the dashboard link
       } else {
-        // Login gagal, tampilkan pesan kesalahan
-        document.getElementById('errorMessage').textContent = 'Username atau password salah';
+        alert("Password atau username salah");
       }
     })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-      // Tampilkan pesan kesalahan jika terjadi kesalahan saat mengambil data
-      document.getElementById('errorMessage').textContent = 'Terjadi kesalahan saat mengambil data.';
-    });
+    .catch(error => console.error('Error:', error));
+}
+
+function logout() {
+  sessionStorage.clear(); // Clear session storage
+  window.location.href = "login.html"; // Redirect to login page
+}
+
+// Check login status and redirect to login page if not logged in
+function checkLoginStatus() {
+  if (!sessionStorage.getItem("loggedIn")) {
+    window.location.href = "login.html";
+  }
+}
+
+// Set session storage after successful login
+function successfulLogin(dashboardLink) {
+  sessionStorage.setItem("loggedIn", true);
+  sessionStorage.setItem("dashboardLink", dashboardLink); // Store the dashboard link
 }
