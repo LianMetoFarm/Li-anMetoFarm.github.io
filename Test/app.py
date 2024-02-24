@@ -29,7 +29,7 @@ def logout():
     # Example logout logic
     session.pop('username', None)
 
-@app.route('/test', methods=['GET', 'POST'])
+@app.route('/test/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         username = request.form['username']
@@ -38,13 +38,13 @@ def index():
             session['username'] = username
             return redirect(url_for('dashboard'))
         else:
-            return render_template('index.html', message='Login failed. Please try again.')
-    return render_template('index.html')
+            return render_template('/Test/index.html', message='Login failed. Please try again.')
+    return render_template('/Test/index.html')
 
-@app.route('/dashboard')
+@app.route('/Test/dashboard')
 def dashboard():
     if 'username' in session:
-        return render_template('dashboard.html', username=session['username'])
+        return render_template('/Test/dashboard.html', username=session['username'])
     else:
         return redirect(url_for('index'))
 
