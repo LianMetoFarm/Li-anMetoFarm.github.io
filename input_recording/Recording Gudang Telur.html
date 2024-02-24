@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recording Gudang Pakan</title>
+  <!-- Tautan Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     /* CSS untuk membuat iframe fullscreen */
     body, html, #iframe-container {
@@ -11,18 +13,63 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
     }
     #iframe-container iframe {
       width: 100%;
       height: 100%;
       border: none; /* Untuk menghilangkan border */
     }
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      z-index: 9999; /* Pastikan tombol logout ada di atas elemen lain */
+    }
+    .refresh-btn {
+      position: absolute;
+      top: 20px;
+      right: 120px; /* Jarak dari kiri */
+      z-index: 9999; /* Pastikan tombol refresh ada di atas elemen lain */
+    }
   </style>
 </head>
 <body>
+  <!-- Tombol Refresh -->
+  <button type="button" class="btn btn-primary refresh-btn">
+    Refres
+    <!-- <i class="fas fa-sync-alt"></i> -->
+  </button>
+  <!-- Tombol Logout -->
+  <button type="button" class="btn btn-danger logout-btn" data-bs-toggle="modal" data-bs-target="#logoutModal">
+    Keluar
+  </button>
+  
+  <!-- Modal Konfirmasi Logout -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Apakah Anda yakin ingin keluar?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger" id="logoutConfirmBtn">Keluar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="iframe-container">
     <iframe src="https://script.google.com/macros/s/AKfycbxfUQeqUwbsju8TDn7lgVvyPDSgzURUUukI2jGojw/exec"></iframe>
   </div>
+  <!-- Sertakan tautan Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <!-- Sertakan file JavaScript -->
+  <script src="logout.js"></script>
 </body>
 </html>
