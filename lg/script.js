@@ -12,7 +12,7 @@ function login() {
       const rows = data.values;
       const user = rows.find(row => row[0] === username && row[1] === password);
       if (user) {
-        alert("Login Berhasil!");
+        // alert("Login Berhasil!");
         successfulLogin(user[2]); // Pass the dashboard link to successfulLogin
         window.location.href = user[2]; // Redirect to the dashboard link
       } else {
