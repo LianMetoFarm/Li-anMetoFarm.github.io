@@ -29,7 +29,7 @@ def logout():
     # Example logout logic
     session.pop('username', None)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/test', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         username = request.form['username']
