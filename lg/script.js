@@ -1,6 +1,6 @@
 const apiKey = "AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc";
 const spreadsheetId = "1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM";
-const range = "Sheet9!A:B"; // Adjust this according to your sheet structure
+const range = "Users!A:C"; // Adjust this according to your sheet structure
 
 function login() {
   const username = document.getElementById('username').value;
@@ -10,11 +10,11 @@ function login() {
     .then(response => response.json())
     .then(data => {
       const rows = data.values;
-      const found = rows.find(row => row[0] === username && row[1] === password);
-      if (found) {
+      const user = rows.find(row => row[0] === username && row[1] === password);
+      if (user) {
         alert("Login successful!");
-        successfulLogin();
-        window.location.href = "dashboard.html"; // Redirect to dashboard
+        successfulLogin(user[2]); // Pass the dashboard link to successfulLogin
+        window.location.href = user[2]; // Redirect to the dashboard link
       } else {
         alert("Invalid username or password!");
       }
@@ -23,10 +23,8 @@ function login() {
 }
 
 function logout() {
-  // Clear session storage to prevent back navigation to dashboard
-  sessionStorage.clear();
-  // Redirect to login page
-  window.location.href = "login.html"; 
+  sessionStorage.clear(); // Clear session storage
+  window.location.href = "login.html"; // Redirect to login page
 }
 
 // Check login status and redirect to login page if not logged in
@@ -37,6 +35,7 @@ function checkLoginStatus() {
 }
 
 // Set session storage after successful login
-function successfulLogin() {
+function successfulLogin(dashboardLink) {
   sessionStorage.setItem("loggedIn", true);
+  sessionStorage.setItem("dashboardLink", dashboardLink); // Store the dashboard link
 }
