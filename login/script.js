@@ -40,3 +40,8 @@ function successfulLogin(dashboardLink) {
   sessionStorage.setItem("dashboardLink", dashboardLink); // Store the dashboard link
 }
 document.getElementById("warning").remove();
+
+ // Fungsi untuk mengarahkan ke halaman index
+ function goToIndex() {
+  window.location.href = "/profile/index.com";
+}
