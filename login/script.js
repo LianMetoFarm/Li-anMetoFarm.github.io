@@ -39,3 +39,4 @@ function successfulLogin(dashboardLink) {
   sessionStorage.setItem("loggedIn", true);
   sessionStorage.setItem("dashboardLink", dashboardLink); // Store the dashboard link
 }
+document.getElementById("warning").remove();
