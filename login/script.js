@@ -43,5 +43,5 @@ document.getElementById("warning").remove();
 
  // Fungsi untuk mengarahkan ke halaman index
  function goToIndex() {
-  window.location.href = "/profile/index.com";
+  window.location.href = "/profile/index.html";
 }
