@@ -3,25 +3,49 @@ $(document).ready(function() {
     var apiKey = 'AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc';
     // ID of the spreadsheet
     var spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
-    // Sheet number (0 for the first sheet, 1 for the second, etc.)
-    var sheetNumber = 3;
+
+    // Daftar nama sheet yang ingin diambil
+    var sheetNames = ['Kandang 1'];
 
     // Google Sheets API endpoint
-    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId +
-              '/values/Sheet' + sheetNumber + '!A8:Z100?key=' + apiKey;
+    var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
+    var url = baseUrl + spreadsheetId + '?key=' + apiKey;
 
-    // Fetch data from Google Sheets API
+    // Ambil metadata tentang spreadsheet
     $.get(url, function(data) {
-        var rows = data.values;
+        var sheets = data.sheets;
 
-        // Append data to the table
-        var table = $('#data-table');
-        for (var i = 0; i < rows.length; i++) {
-            var row = $('<tr>');
-            for (var j = 0; j < rows[i].length; j++) {
-                row.append($('<td>').text(rows[i][j]));
+        // Loop melalui setiap sheet
+        for (var i = 0; i < sheets.length; i++) {
+            var sheet = sheets[i];
+            var sheetTitle = sheet.properties.title;
+
+            // Jika sheet ada dalam daftar yang diinginkan
+            if (sheetNames.includes(sheetTitle)) {
+                var sheetId = sheet.properties.sheetId;
+
+                // Endpoint API untuk mendapatkan data dari sheet tertentu
+                var sheetUrl = baseUrl + spreadsheetId + '/values/' + sheetTitle + '!A1:Z100?key=' + apiKey;
+
+                // Ambil data dari sheet
+                $.get(sheetUrl, function(sheetData) {
+                    var rows = sheetData.values;
+
+                    // Tambahkan data ke dalam tabel
+                    var table = $('<table>');
+                    table.append($('<caption>').text(sheetTitle));
+                    for (var j = 0; j < rows.length; j++) {
+                        var row = $('<tr>');
+                        for (var k = 0; k < rows[j].length; k++) {
+                            row.append($('<td>').text(rows[j][k]));
+                        }
+                        table.append(row);
+                    }
+
+                    // Tambahkan tabel ke dalam dokumen
+                    $('#data-container').append(table);
+                });
             }
-            table.append(row);
         }
     });
 });
