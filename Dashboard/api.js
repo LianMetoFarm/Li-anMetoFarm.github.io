@@ -25,7 +25,7 @@ $(document).ready(function() {
                 var sheetId = sheet.properties.sheetId;
 
                 // Endpoint API untuk mendapatkan data dari sheet tertentu
-                var sheetUrl = baseUrl + spreadsheetId + '/values/' + sheetTitle + '!A8:C100?key=' + apiKey;
+                var sheetUrl = baseUrl + spreadsheetId + '/values/' + sheetTitle + '!A9:C100,E9:E100?key=' + apiKey;
 
                 // Ambil data dari sheet
                 $.get(sheetUrl, function(sheetData) {
