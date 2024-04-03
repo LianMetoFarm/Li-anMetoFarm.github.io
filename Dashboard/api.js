@@ -1,13 +1,13 @@
 $(document).ready(function() {
-    // API key for Google Sheets API
+    // API key untuk Google Sheets API
     var apiKey = 'AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc';
-    // ID of the spreadsheet
+    // ID dari spreadsheet
     var spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
 
     // Daftar nama sheet yang ingin diambil
     var sheetNames = ['Kandang 1'];
 
-    // Google Sheets API endpoint
+    // Endpoint API untuk mendapatkan metadata tentang spreadsheet
     var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
     var url = baseUrl + spreadsheetId + '?key=' + apiKey;
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
                 var sheetId = sheet.properties.sheetId;
 
                 // Endpoint API untuk mendapatkan data dari sheet tertentu
-                var sheetUrl = baseUrl + spreadsheetId + '/values/' + sheetTitle + '!B9:B100?key=' + apiKey;
+                var sheetUrl = baseUrl + spreadsheetId + '/values/' + sheetTitle + '!B9:E100?key=' + apiKey;
 
                 // Ambil data dari sheet
                 $.get(sheetUrl, function(sheetData) {
@@ -37,7 +37,9 @@ $(document).ready(function() {
                     for (var j = 0; j < rows.length; j++) {
                         var row = $('<tr>');
                         row.append($('<td>').text(rows[j][0])); // Kolom B (indeks 0)
-                        row.append($('<td>').text(rows[j][1])); // Kolom E (indeks 1)
+                        row.append($('<td>').text(rows[j][1])); // Kolom C (indeks 1)
+                        row.append($('<td>').text(rows[j][2])); // Kolom D (indeks 2)
+                        row.append($('<td>').text(rows[j][3])); // Kolom E (indeks 3)
                         table.append(row);
                     }
 
