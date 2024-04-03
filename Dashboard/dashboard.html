@@ -46,10 +46,11 @@
                     title: "Tanggal"
                 },
                 axisY: {
-                    title: "Jumlah Kematian Ayam"
+                    title: "Jumlah Kematian"
                 },
                 data: [{
                     type: "line",
+                    xValueType: "dateTime",
                     dataPoints: []
                 }]
             });
@@ -59,16 +60,19 @@
                     var data = response.feed.entry;
                     var dataPoints = [];
 
-                    for (var i = 0; i < data.length; i++) {
-                        var dateStr = data[i].gsx$b.$t; // Mengambil tanggal dari kolom B
-                        var deathCount = parseInt(data[i].gsx$e.$t); // Mengambil jumlah kematian dari kolom E
+                    for (var i = 10; i < data.length; i++) { // Mulai dari baris 11
+                        var date = data[i].gsx$b.$t;
+                        var deathCount = parseInt(data[i].gsx$e.$t);
 
-                        // Mengonversi tanggal dari format "YYYY-MM-DD" menjadi objek Date JavaScript
-                        var dateParts = dateStr.split("-");
-                        var date = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
+                        // Parsing tanggal
+                        var parts = date.split('/');
+                        var year = parseInt(parts[2]);
+                        var month = parseInt(parts[0]) - 1; // Bulan dimulai dari 0
+                        var day = parseInt(parts[1]);
+                        var timestamp = new Date(year, month, day).getTime();
 
                         dataPoints.push({
-                            x: date,
+                            x: timestamp,
                             y: deathCount
                         });
                     }
