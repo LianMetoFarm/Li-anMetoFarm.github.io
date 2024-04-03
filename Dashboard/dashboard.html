@@ -1,95 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-        .container {
-            margin-top: 50px;
-            text-align: center;
-        }
-        .img-fluid {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+    <title>Grafik Kematian Ayam dari Google Sheets</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+        crossorigin="anonymous">
 </head>
+
 <body>
-    <div class="container">
-        <h2>Kematian Ayam per Hari</h2>
-        <canvas id="myChart"></canvas>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Grafik Kematian Ayam dari Google Sheets</h1>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            </div>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
+        integrity="sha384-PVxyt3nq41ztfpJWgzbFCw7ybR1+M++5aF1IRZoDcSKDmzs5aQ1QeXosUmPxGJGJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk5tJA7hFg/rW+i2+k7stuE4gBnyJ7JouQ"
+        crossorigin="anonymous"></script>
+
+    <!-- Grafik dengan CanvasJS -->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script>
-        // Script JavaScript untuk mengambil data dan membuat grafik
-
-        // Fungsi untuk mengambil data dari spreadsheet atau sumber data lainnya
-        async function getData() {
-            const response = await fetch('https://docs.google.com/spreadsheets/d/1rRadtWZisAskPWuFf-oyBr8KGTYb-N87JIz9s7M0ZQY/edit?usp=sharing');
-            const data = await response.text();
-            return data;
-        }
-
-        // Fungsi untuk mengonversi data CSV menjadi objek JSON
-        function csvToJson(csv) {
-            const lines = csv.split('\n');
-            const result = [];
-            const headers = lines[0].split(',');
-            for (let i = 1; i < lines.length; i++) {
-                const obj = {};
-                const currentline = lines[i].split(',');
-                for (let j = 0; j < headers.length; j++) {
-                    obj[headers[j]] = currentline[j];
-                }
-                result.push(obj);
-            }
-            return result;
-        }
-
-        // Fungsi untuk menggambar grafik menggunakan Chart.js
-        function drawChart(data) {
-            const labels = data.map(item => item['Tanggal']);
-            const deaths = data.map(item => parseInt(item['Kematian Ayam']));
-
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Kematian Ayam per Hari',
-                        data: deaths,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                theme: "light2",
+                title: {
+                    text: "Grafik Kematian Ayam dari Google Sheets"
                 },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
+                axisX: {
+                    title: "Tanggal"
+                },
+                axisY: {
+                    title: "Jumlah Kematian Ayam"
+                },
+                data: [{
+                    type: "line",
+                    dataPoints: []
+                }]
             });
-        }
 
-        // Fungsi utama untuk menjalankan semua proses
-        async function main() {
-            try {
-                const csvData = await getData();
-                const jsonData = csvToJson(csvData);
-                drawChart(jsonData);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
+            $.getJSON('https://spreadsheets.google.com/feeds/list/1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM/1/public/full?alt=json',
+                function (response) {
+                    var data = response.feed.entry;
+                    var dataPoints = [];
 
-        // Jalankan fungsi utama
-        main();
+                    for (var i = 0; i < data.length; i++) {
+                        var dateStr = data[i].gsx$b.$t; // Mengambil tanggal dari kolom B
+                        var deathCount = parseInt(data[i].gsx$e.$t); // Mengambil jumlah kematian dari kolom E
+
+                        // Mengonversi tanggal dari format "YYYY-MM-DD" menjadi objek Date JavaScript
+                        var dateParts = dateStr.split("-");
+                        var date = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
+
+                        dataPoints.push({
+                            x: date,
+                            y: deathCount
+                        });
+                    }
+
+                    chart.options.data[0].dataPoints = dataPoints;
+                    chart.render();
+                });
+        }
     </script>
 </body>
+
 </html>
