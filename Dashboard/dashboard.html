@@ -28,7 +28,7 @@
 
         // Fungsi untuk mengambil data dari spreadsheet atau sumber data lainnya
         async function getData() {
-            const response = await fetch('https://docs.google.com/spreadsheets/d/1rRadtWZisAskPWuFf-oyBr8KGTYb-N87JIz9s7M0ZQY/export?format=csv');
+            const response = await fetch('https://docs.google.com/spreadsheets/d/1rRadtWZisAskPWuFf-oyBr8KGTYb-N87JIz9s7M0ZQY/edit?usp=sharing');
             const data = await response.text();
             return data;
         }
