@@ -51,8 +51,8 @@
 
         // Fungsi untuk menggambar grafik menggunakan Chart.js
         function drawChart(data) {
-            const labels = data.map(item => item.Tanggal);
-            const deaths = data.map(item => item['Kematian Ayam']);
+            const labels = data.map(item => item['Tanggal']);
+            const deaths = data.map(item => parseInt(item['Kematian Ayam']));
 
             const ctx = document.getElementById('myChart').getContext('2d');
             const myChart = new Chart(ctx, {
