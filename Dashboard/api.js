@@ -34,30 +34,38 @@ $(document).ready(function() {
 
                 // Ambil data dari sheet
                 $.get(sheetUrl, function(sheetData) {
-                    var rows = sheetData.values;
+                    if (sheetData && sheetData.values && sheetData.values.length > 0) {
+                        var rows = sheetData.values;
 
-                    // Tambahkan data ke dalam tabel
-                    var table = $('<table>').addClass('table table-dark table-hover');
-                    // Tambahkan judul kolom
-                    var headerRow = $('<tr>');
-                    for (var k = 0; k < columnsToDisplay.length; k++) {
-                        headerRow.append($('<th>').text(columnTitles[k]));
-                    }
-                    table.append(headerRow);
-                    // Tambahkan data
-                    for (var j = 0; j < rows.length; j++) {
-                        var row = $('<tr>');
+                        // Tambahkan data ke dalam tabel
+                        var table = $('<table>').addClass('table table-dark table-hover');
+                        // Tambahkan judul kolom
+                        var headerRow = $('<tr>');
                         for (var k = 0; k < columnsToDisplay.length; k++) {
-                            var columnIndex = columnsToDisplay[k];
-                            row.append($('<td>').text(rows[j][columnIndex]));
+                            headerRow.append($('<th>').text(columnTitles[k]));
                         }
-                        table.append(row);
-                    }
+                        table.append(headerRow);
+                        // Tambahkan data
+                        for (var j = 0; j < rows.length; j++) {
+                            var row = $('<tr>');
+                            for (var k = 0; k < columnsToDisplay.length; k++) {
+                                var columnIndex = columnsToDisplay[k];
+                                row.append($('<td>').text(rows[j][columnIndex]));
+                            }
+                            table.append(row);
+                        }
 
-                    // Tambahkan tabel ke dalam dokumen
-                    $('#data-container').append(table);
+                        // Tambahkan tabel ke dalam dokumen
+                        $('#data-container').append(table);
+                    } else {
+                        console.log('Data tidak tersedia atau tidak valid.');
+                    }
+                }).fail(function() {
+                    console.log('Gagal mengambil data dari spreadsheet.');
                 });
             }
         }
+    }).fail(function() {
+        console.log('Gagal mengambil metadata tentang spreadsheet.');
     });
 });
