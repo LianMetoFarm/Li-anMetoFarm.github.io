@@ -39,7 +39,7 @@ $(document).ready(function() {
                         row.append($('<td>').text(rows[j][0])); // Kolom B (indeks 0)
                         row.append($('<td>').text(rows[j][1])); // Kolom C (indeks 1)
                         row.append($('<td>').text(rows[j][2])); // Kolom D (indeks 2)
-                        row.append($('<td>').text(rows[j][3])); // Kolom E (indeks 3)
+                        // row.append($('<td>').text(rows[j][3])); // Kolom E (indeks 3)
                         table.append(row);
                     }
 
