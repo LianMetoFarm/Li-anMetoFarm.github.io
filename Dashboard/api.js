@@ -10,6 +10,9 @@ $(document).ready(function() {
     // Kolom yang ingin ditampilkan (indeks dimulai dari 0)
     var columnsToDisplay = [0, 1, 4]; // Kolom A (0), B (1), dan E (4)
 
+    // Judul kolom
+    var columnTitles = ['Id', 'Tanggal', 'Ayam Mati'];
+
     // Endpoint API untuk mendapatkan metadata tentang spreadsheet
     var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
     var url = baseUrl + spreadsheetId + '?key=' + apiKey;
@@ -28,7 +31,7 @@ $(document).ready(function() {
                 var sheetId = sheet.properties.sheetId;
 
                 // Endpoint API untuk mendapatkan data dari sheet tertentu
-                var range = sheetTitle + '!A9:U100';
+                var range = sheetTitle + '!A11:U100';
                 var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
 
                 // Ambil data dari sheet
@@ -37,7 +40,11 @@ $(document).ready(function() {
 
                     // Tambahkan data ke dalam tabel
                     var table = $('<table>');
-                    // table.append($('<caption>').text(sheetTitle));
+                    var headerRow = $('<tr>');
+                    for (var l = 0; l < columnsToDisplay.length; l++) {
+                        headerRow.append($('<th>').text(columnTitles[l]));
+                    }
+                    table.append(headerRow);
                     for (var j = 0; j < rows.length; j++) {
                         var row = $('<tr>');
                         for (var k = 0; k < columnsToDisplay.length; k++) {
