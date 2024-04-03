@@ -33,13 +33,11 @@ $(document).ready(function() {
 
                     // Tambahkan data ke dalam tabel
                     var table = $('<table>');
-                    // table.append($('<caption>').text(sheetTitle));
                     for (var j = 0; j < rows.length; j++) {
                         var row = $('<tr>');
-                        row.append($('<td>').text(rows[j][0])); // Kolom B (indeks 0)
-                        row.append($('<td>').text(rows[j][1])); // Kolom C (indeks 1)
-                        row.append($('<td>').text(rows[j][2])); // Kolom D (indeks 2)
-                        // row.append($('<td>').text(rows[j][3])); // Kolom E (indeks 3)
+                        row.append($('<td>').text(rows[j][0])); // Kolom A (indeks 0)
+                        row.append($('<td>').text(rows[j][1])); // Kolom B (indeks 1)
+                        row.append($('<td>').text(rows[j][2])); // Kolom E (indeks 4)
                         table.append(row);
                     }
 
