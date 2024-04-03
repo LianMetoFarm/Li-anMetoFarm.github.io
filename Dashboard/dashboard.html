@@ -1,106 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Tabel dan Grafik dari Google Sheets</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-        crossorigin="anonymous">
+    <title>Data from Google Sheets</title>
 </head>
-
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Data Tabel dan Grafik dari Google Sheets</h1>
-        <div class="row">
-            <div class="col-md-8">
-                <h3>Tabel Data</h3>
-                <div id="tableContainer"></div>
-            </div>
-            <div class="col-md-4">
-                <h3>Grafik</h3>
-                <div id="chartContainer" style="height: 300px;"></div>
-            </div>
-        </div>
-    </div>
+    <h1>Data from Google Sheets</h1>
+    <table id="data-table">
+        <!-- Data will be populated here -->
+    </table>
 
-    <!-- Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"
-        integrity="sha384-PVxyt3nq41ztfpJWgzbFCw7ybR1+M++5aF1IRZoDcSKDmzs5aQ1QeXosUmPxGJGJ"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk5tJA7hFg/rW+i2+k7stuE4gBnyJ7JouQ"
-        crossorigin="anonymous"></script>
-
-    <!-- Grafik dengan CanvasJS -->
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script>
-        window.onload = function () {
-            // Mendapatkan data untuk tabel dan grafik
-            $.getJSON('https://spreadsheets.google.com/feeds/list/1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM/1/public/full?alt=json',
-                function (response) {
-                    var data = response.feed.entry;
-
-                    // Menyiapkan data untuk tabel
-                    var tableHtml = '<table class="table"><thead><tr><th>Tanggal</th><th>Jumlah Kematian Ayam</th></tr></thead><tbody>';
-                    for (var i = 10; i < data.length; i++) { // Mulai dari baris 11
-                        var date = data[i].gsx$b.$t;
-                        var deathCount = data[i].gsx$e.$t;
-                        tableHtml += '<tr><td>' + date + '</td><td>' + deathCount + '</td></tr>';
-                    }
-                    tableHtml += '</tbody></table>';
-
-                    // Menampilkan tabel
-                    $('#tableContainer').html(tableHtml);
-
-                    // Menyiapkan data untuk grafik
-                    var dataPoints = [];
-                    for (var i = 10; i < data.length; i++) { // Mulai dari baris 11
-                        var date = data[i].gsx$b.$t;
-                        var deathCount = parseInt(data[i].gsx$e.$t);
-
-                        // Parsing tanggal
-                        var parts = date.split('/');
-                        var year = parseInt(parts[2]);
-                        var month = parseInt(parts[0]) - 1; // Bulan dimulai dari 0
-                        var day = parseInt(parts[1]);
-                        var timestamp = new Date(year, month, day).getTime();
-
-                        dataPoints.push({
-                            x: timestamp,
-                            y: deathCount
-                        });
-                    }
-
-                    // Menampilkan grafik
-                    var chart = new CanvasJS.Chart("chartContainer", {
-                        animationEnabled: true,
-                        theme: "light2",
-                        title: {
-                            text: "Grafik Kematian Ayam dari Google Sheets"
-                        },
-                        axisX: {
-                            title: "Tanggal"
-                        },
-                        axisY: {
-                            title: "Jumlah Kematian"
-                        },
-                        data: [{
-                            type: "line",
-                            xValueType: "dateTime",
-                            dataPoints: dataPoints
-                        }]
-                    });
-
-                    chart.render();
-                });
-        }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
