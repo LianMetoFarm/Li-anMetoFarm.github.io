@@ -7,6 +7,9 @@ $(document).ready(function() {
     // Daftar nama sheet yang ingin diambil
     var sheetNames = ['Kandang 1'];
 
+    // Kolom yang ingin ditampilkan (indeks dimulai dari 0)
+    var columnsToDisplay = [0, 1, 4]; // Kolom A (0), B (1), dan E (4)
+
     // Endpoint API untuk mendapatkan metadata tentang spreadsheet
     var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
     var url = baseUrl + spreadsheetId + '?key=' + apiKey;
@@ -24,41 +27,30 @@ $(document).ready(function() {
             if (sheetNames.includes(sheetTitle)) {
                 var sheetId = sheet.properties.sheetId;
 
+                // Endpoint API untuk mendapatkan data dari sheet tertentu
+                var range = sheetTitle + '!A9:U100';
+                var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
+
                 // Ambil data dari sheet
-                var sheetUrl = baseUrl + spreadsheetId + '/values/' + sheetTitle + '!A9:E100?key=' + apiKey;
                 $.get(sheetUrl, function(sheetData) {
                     var rows = sheetData.values;
-                    
-                    // Menambahkan form untuk memilih kolom
-                    var select = $('<select id="column-select">');
-                    for (var k = 0; k < rows[0].length; k++) {
-                        select.append($('<option>', { value: k, text: rows[0][k] }));
+
+                    // Tambahkan data ke dalam tabel
+                    var table = $('<table>');
+                    // table.append($('<caption>').text(sheetTitle));
+                    for (var j = 0; j < rows.length; j++) {
+                        var row = $('<tr>');
+                        for (var k = 0; k < columnsToDisplay.length; k++) {
+                            var columnIndex = columnsToDisplay[k];
+                            row.append($('<td>').text(rows[j][columnIndex]));
+                        }
+                        table.append(row);
                     }
-                    $('#data-container').append(select);
-                    
-                    // Menampilkan data awal
-                    showData(rows);
-                    
-                    // Menangani perubahan pilihan kolom
-                    $('#column-select').change(function() {
-                        var columnIndex = $(this).val();
-                        showData(rows, columnIndex);
-                    });
+
+                    // Tambahkan tabel ke dalam dokumen
+                    $('#data-container').append(table);
                 });
             }
         }
     });
-    
-    // Fungsi untuk menampilkan data sesuai dengan pilihan kolom pengguna
-    function showData(rows, columnIndex = 0) {
-        $('#data-container').empty();
-        var table = $('<table>');
-        for (var j = 0; j < rows.length; j++) {
-            var row = $('<tr>');
-            row.append($('<td>').text(rows[j][0])); // Kolom A (indeks 0)
-            row.append($('<td>').text(rows[j][columnIndex])); // Kolom yang dipilih oleh pengguna
-            table.append(row);
-        }
-        $('#data-container').append(table);
-    }
 });
