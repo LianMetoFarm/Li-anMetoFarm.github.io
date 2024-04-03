@@ -1,3 +1,28 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Kandang Ayam</title> -->
+<!-- Bootstrap CSS -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="my-4">Data Kandang Ayam</h1>
+        <div id="data-container"></div>
+    </div> -->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="api.js"></script>
+</body>
+</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,16 +34,81 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="my-4">Data Kandang Ayam</h1>
-        <div id="data-container"></div>
-    </div>
+<div class="container">
+    <h1 class="my-4">Data Kandang Ayam</h1>
+    <div id="data-container"></div>
+</div>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="api.js"></script>
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // API key untuk Google Sheets API
+    var apiKey = 'AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc';
+    // ID dari spreadsheet
+    var spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
+
+    // Daftar nama sheet yang ingin diambil
+    var sheetNames = ['Kandang 1'];
+
+    // Kolom yang ingin ditampilkan (indeks dimulai dari 0)
+    var columnsToDisplay = [0, 1, 4]; // Kolom A (0), B (1), dan E (4)
+    var columnTitles = ['Id', 'Tanggal', 'Ayam Mati']; // Judul Kolom
+
+    // Endpoint API untuk mendapatkan metadata tentang spreadsheet
+    var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
+    var url = baseUrl + spreadsheetId + '?key=' + apiKey;
+
+    // Ambil metadata tentang spreadsheet
+    $.get(url, function(data) {
+        var sheets = data.sheets;
+
+        // Loop melalui setiap sheet
+        for (var i = 0; i < sheets.length; i++) {
+            var sheet = sheets[i];
+            var sheetTitle = sheet.properties.title;
+
+            // Jika sheet ada dalam daftar yang diinginkan
+            if (sheetNames.includes(sheetTitle)) {
+                var sheetId = sheet.properties.sheetId;
+
+                // Endpoint API untuk mendapatkan data dari sheet tertentu
+                var range = sheetTitle + '!A9:E100';
+                var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
+
+                // Ambil data dari sheet
+                $.get(sheetUrl, function(sheetData) {
+                    var rows = sheetData.values;
+
+                    // Tambahkan data ke dalam tabel
+                    var table = $('<table>').addClass('table table-dark table-striped table-hover');
+                    // Tambahkan judul kolom
+                    var headerRow = $('<tr>');
+                    for (var k = 0; k < columnsToDisplay.length; k++) {
+                        headerRow.append($('<th>').text(columnTitles[k]));
+                    }
+                    table.append(headerRow);
+                    // Tambahkan data
+                    for (var j = 0; j < rows.length; j++) {
+                        var row = $('<tr>');
+                        for (var k = 0; k < columnsToDisplay.length; k++) {
+                            var columnIndex = columnsToDisplay[k];
+                            row.append($('<td>').text(rows[j][columnIndex]));
+                        }
+                        table.append(row);
+                    }
+
+                    // Tambahkan tabel ke dalam dokumen
+                    $('#data-container').append(table);
+                });
+            }
+        }
+    });
+});
+</script>
+
 </body>
 </html>
