@@ -38,7 +38,7 @@ $(document).ready(function() {
                         var rows = sheetData.values;
 
                         // Tambahkan data ke dalam tabel
-                        var table = $('<table>').addClass('table table-dark table-hover');
+                        var table = $('<table>').addClass('table table-dark table-striped table-hover');
                         // Tambahkan judul kolom
                         var headerRow = $('<tr>');
                         for (var k = 0; k < columnsToDisplay.length; k++) {
