@@ -38,7 +38,7 @@ def generate_plot():
 
     return img_base64
 
-@app.route('/')
+@app.route('/Dashboard/')
 def dashboard():
     plot_data = generate_plot()
     return render_template('dashboard.html', plot_data=plot_data)
