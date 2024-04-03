@@ -25,7 +25,7 @@ $(document).ready(function() {
                 var sheetId = sheet.properties.sheetId;
 
                 // Endpoint API untuk mendapatkan data dari sheet tertentu
-                var sheetUrl = baseUrl + spreadsheetId + '/values/' + sheetTitle + '!A10:U100?key=' + apiKey;
+                var sheetUrl = baseUrl + spreadsheetId + '/values/' + sheetTitle + '!B10:B100,E10:E100?key=' + apiKey;
 
                 // Ambil data dari sheet
                 $.get(sheetUrl, function(sheetData) {
@@ -36,9 +36,8 @@ $(document).ready(function() {
                     table.append($('<caption>').text(sheetTitle));
                     for (var j = 0; j < rows.length; j++) {
                         var row = $('<tr>');
-                        for (var k = 0; k < rows[j].length; k++) {
-                            row.append($('<td>').text(rows[j][k]));
-                        }
+                        row.append($('<td>').text(rows[j][0])); // Kolom B (indeks 0)
+                        row.append($('<td>').text(rows[j][1])); // Kolom E (indeks 1)
                         table.append(row);
                     }
 
