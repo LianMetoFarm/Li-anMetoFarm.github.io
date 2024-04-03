@@ -69,7 +69,7 @@
                         var year = parseInt(parts[2]);
                         var month = parseInt(parts[0]) - 1; // Bulan dimulai dari 0
                         var day = parseInt(parts[1]);
-                        var timestamp = new Date(year, month, day).getTime();
+                        var timestamp = new Date(day, month, year).getTime();
 
                         dataPoints.push({
                             x: timestamp,
