@@ -202,8 +202,8 @@
                             var totalRak = parseInt(rows[0][7] || 0);
 
                             // Hitung total Rak Utuh dan total Butir utuh
-                            var totalRakUtuh = rows.reduce((total, row) => total + parseInt(row[7] || 0), 0);
-                            var totalButirUtuh = rows.reduce((total, row) => total + parseInt(row[8] || 0), 0);
+                            var totalRakUtuh = rows.reduce((total2, row) => total2 + parseInt(row[7] || 0), 0);
+                            var totalButirUtuh = rows.reduce((total2, row) => total2 + parseInt(row[8] || 0), 0);
 
                             // Hitung total Butir Utuh
                             var totalButir = parseInt(rows[0][8] || 0);
