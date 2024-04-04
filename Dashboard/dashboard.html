@@ -52,6 +52,9 @@
     <div class="table-responsive" id="data-container"></div>
     <canvas id="myChart"></canvas>
     <div class="row mt-4">
+        <div class="col-md-12">
+            <p>Total Ayam Masuk: <span id="totalAyam"></span></p>
+        </div>
         <div class="col-md-4">
             <p>Total Ayam Mati: <span id="totalAyamMati"></span></p>
         </div>
@@ -135,6 +138,9 @@
                             // Tambahkan tabel ke dalam dokumen
                             $('#data-container').append(table);
 
+                            // Hitung total ayam
+                            var totalAyam = parseInt(rows[0][6] || 0);
+
                             // Hitung total ayam mati dan total ayam afkir
                             var totalAyamMati = rows.reduce((total, row) => total + parseInt(row[4] || 0), 0);
                             var totalAyamAfkir = rows.reduce((total, row) => total + parseInt(row[5] || 0), 0);
@@ -142,7 +148,9 @@
                             // Hitung total sisa ayam
                             var totalSisaAyam = parseInt(rows[0][6] || 0) - totalAyamMati - totalAyamAfkir;
 
-                            // Tampilkan total ayam mati, total ayam afkir, dan total sisa ayam
+
+                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, dan total ayam
+                            $('#totalAyam').text(totalAyam);
                             $('#totalAyamMati').text(totalAyamMati);
                             $('#totalAyamAfkir').text(totalAyamAfkir);
                             $('#totalSisaAyam').text(totalSisaAyam);
