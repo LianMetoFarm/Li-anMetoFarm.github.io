@@ -34,7 +34,7 @@
 </head>
 <body>
 
-<div class="table-responsive">
+<div class="container">
     <h1 class="my-4">Data Kandang Ayam</h1>
     <div id="data-container"></div>
 </div>
@@ -85,7 +85,7 @@
                             var rows = sheetData.values;
 
                             // Tambahkan data ke dalam tabel
-                            var table = $('<table>').addClass('table table-dark table-striped table-hover');
+                            var table = $('<table>').addClass('table table-dark table-responsive');
                             // Tambahkan judul kolom
                             var headerRow = $('<tr>');
                             for (var k = 0; k < columnsToDisplay.length; k++) {
