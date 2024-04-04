@@ -37,9 +37,10 @@
         overflow: scroll;
     }
 
-    th, thead{
+    th, thead th {
         position: sticky;
         top: 0;
+        background-color: #f8f9fa; /* Ganti warna latar belakang sesuai kebutuhan */
     }
 </style>
 </head>
@@ -97,12 +98,15 @@
 
                             // Tambahkan data ke dalam tabel
                             var table = $('<table>').addClass('table');
-                            // Tambahkan judul kolom
+                            // Tambahkan elemen thead
+                            var thead = $('<thead>');
+                            // Tambahkan baris judul kolom
                             var headerRow = $('<tr>');
                             for (var k = 0; k < columnsToDisplay.length; k++) {
                                 headerRow.append($('<th>').text(columnTitles[k]));
                             }
-                            table.append(headerRow);
+                            thead.append(headerRow);
+                            table.append(thead);
                             // Tambahkan data
                             for (var j = 0; j < rows.length; j++) {
                                 var row = $('<tr>');
