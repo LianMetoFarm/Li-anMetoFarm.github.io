@@ -44,20 +44,20 @@
         z-index: 999; /* Atur z-index agar tetap di atas konten tabel */
     }
 </style>
-<!-- chart -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <div class="container">
     <h1 class="my-4">Data Kandang Ayam</h1>
     <div class="table-responsive" id="data-container"></div>
+    <canvas id="myChart"></canvas>
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -123,6 +123,29 @@
 
                             // Tambahkan tabel ke dalam dokumen
                             $('#data-container').append(table);
+
+                            // Tambahkan grafik
+                            var ctx = document.getElementById('myChart').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: rows.map(row => row[1]), // Menggunakan kolom kedua sebagai label (misalnya, tanggal)
+                                    datasets: [{
+                                        label: 'Jumlah Ayam Mati',
+                                        data: rows.map(row => parseInt(row[4])), // Menggunakan kolom kelima sebagai data (misalnya, jumlah ayam mati)
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
                         } else {
                             console.log('Data tidak tersedia atau tidak valid.');
                         }
@@ -134,39 +157,6 @@
         }).fail(function() {
             console.log('Gagal mengambil metadata tentang spreadsheet.');
         });
-    });
-    
-    // Tambahkan kode berikut setelah menambahkan tabel ke dalam dokumen
-    var ctx = $('<canvas>').attr('id', 'myChart');
-    $('#data-container').append(ctx);
-
-    var chartData = {
-        labels: [], // Judul kolom
-        datasets: [{
-            label: 'Data',
-            data: [], // Data untuk grafik
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
-        }]
-    };
-
-    // Isi data grafik
-    for (var j = 0; j < rows.length; j++) {
-        chartData.labels.push(rows[j][columnsToDisplay[1]]); // Misalnya, judul kolom kedua digunakan sebagai label
-        chartData.datasets[0].data.push(parseInt(rows[j][columnsToDisplay[2]])); // Misalnya, kolom ketiga digunakan sebagai data
-    }
-
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: chartData,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
     });
 </script>
 
