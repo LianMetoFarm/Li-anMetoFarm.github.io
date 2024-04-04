@@ -133,25 +133,22 @@
                             // Tambahkan grafik
                             var ctx = document.getElementById('myChart').getContext('2d');
                             var myChart = new Chart(ctx, {
-                                type: 'bar',
+                                type: 'pie',
                                 data: {
-                                    labels: rows.map(row => row[1]), // Menggunakan kolom kedua sebagai label (misalnya, tanggal)
-                                    datasets: [
-                                        {
-                                            label: 'Ayam Mati',
-                                            data: rows.map(row => parseInt(row[4])), // Menggunakan kolom kelima sebagai data (misalnya, jumlah ayam mati)
-                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                            borderColor: 'rgba(255, 99, 132, 1)',
-                                            borderWidth: 1
-                                        },
-                                        {
-                                            label: 'Ayam Afkir',
-                                            data: rows.map(row => parseInt(row[5])), // Menggunakan kolom keenam sebagai data (misalnya, jumlah ayam afkir)
-                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                            borderColor: 'rgba(54, 162, 235, 1)',
-                                            borderWidth: 1
-                                        }
-                                    ]
+                                    labels: ['Ayam Mati', 'Ayam Afkir'],
+                                    datasets: [{
+                                        label: 'Ayam',
+                                        data: [totalAyamMati, totalAyamAfkir],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
                                 },
                                 options: {
                                     scales: {
