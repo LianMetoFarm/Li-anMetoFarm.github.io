@@ -61,6 +61,24 @@
         <div class="col-md-4">
             <p>Total Sisa Ayam : <span id="totalSisaAyam"></span></p>
         </div>
+        <div class="col-md-3">
+            <p>Total Rak Utuh : <span id="totalRakUtuh"></span></p>
+        </div>
+        <div class="col-md-3">
+            <p>Total Butir Utuh : <span id="totalButirUtuh"></span></p>
+        </div>
+        <div class="col-md-3">
+            <p>Total Rak Retak : <span id="totalRakRetak"></span></p>
+        </div>
+        <div class="col-md-3">
+            <p>Total Butir Retak : <span id="totalButirRetak"></span></p>
+        </div>
+        <div class="col-md-3">
+            <p>Total Rak Pecah : <span id="totalRakPecah"></span></p>
+        </div>
+        <div class="col-md-3">
+            <p>Total Butir Pecah : <span id="totalButirPecah"></span></p>
+        </div>
     </div>
     <canvas id="pieChart"></canvas>
     <canvas id="barChart"></canvas>
@@ -147,12 +165,25 @@
                             // Hitung total sisa ayam
                             var totalSisaAyam = parseInt(rows[0][6] || 0) - totalAyamMati - totalAyamAfkir;
 
+                            // Hitung total rak utuh, butir utuh, rak retak, butir retak, rak pecah, dan butir pecah
+                            var totalRakUtuh = rows.reduce((total, row) => total + parseInt(row[7] || 0), 0);
+                            var totalButirUtuh = rows.reduce((total, row) => total + parseInt(row[8] || 0), 0);
+                            var totalRakRetak = rows.reduce((total, row) => total + parseInt(row[9] || 0), 0);
+                            var totalButirRetak = rows.reduce((total, row) => total + parseInt(row[10] || 0), 0);
+                            var totalRakPecah = rows.reduce((total, row) => total + parseInt(row[11] || 0), 0);
+                            var totalButirPecah = rows.reduce((total, row) => total + parseInt(row[12] || 0), 0);
 
-                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, dan total ayam
+                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah
                             $('#totalAyam').text(totalAyam);
                             $('#totalAyamMati').text(totalAyamMati);
                             $('#totalAyamAfkir').text(totalAyamAfkir);
                             $('#totalSisaAyam').text(totalSisaAyam);
+                            $('#totalRakUtuh').text(totalRakUtuh);
+                            $('#totalButirUtuh').text(totalButirUtuh);
+                            $('#totalRakRetak').text(totalRakRetak);
+                            $('#totalButirRetak').text(totalButirRetak);
+                            $('#totalRakPecah').text(totalRakPecah);
+                            $('#totalButirPecah').text(totalButirPecah);
 
                             // Tambahkan grafik pie
                             var ctx1 = document.getElementById('pieChart').getContext('2d');
