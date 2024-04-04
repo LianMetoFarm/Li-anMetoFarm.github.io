@@ -55,8 +55,8 @@
         var sheetNames = ['Kandang 1'];
 
         // Kolom yang ingin ditampilkan (indeks dimulai dari 0)
-        var columnsToDisplay = [0, 1, 4, 5]; // Kolom A (0), B (1), dan E (4)
-        var columnTitles = ['Id', 'Tanggal', 'Ayam Mati', 'Ayam Afkir']; // Judul Kolom
+        var columnsToDisplay = [0, 1, 4]; // Kolom A (0), B (1), dan E (4)
+        var columnTitles = ['Id', 'Tanggal', 'Ayam Mati']; // Judul Kolom
 
         // Endpoint API untuk mendapatkan metadata tentang spreadsheet
         var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
@@ -81,31 +81,39 @@
 
                     // Ambil data dari sheet
                     $.get(sheetUrl, function(sheetData) {
-                        var rows = sheetData.values;
+                        if (sheetData && sheetData.values && sheetData.values.length > 0) {
+                            var rows = sheetData.values;
 
-                        // Tambahkan data ke dalam tabel
-                        var table = $('<table>').addClass('table table-striped table-hover');
-                        // Tambahkan judul kolom
-                        var headerRow = $('<tr>');
-                        for (var k = 0; k < columnsToDisplay.length; k++) {
-                            headerRow.append($('<th>').text(columnTitles[k]));
-                        }
-                        table.append(headerRow);
-                        // Tambahkan data
-                        for (var j = 0; j < rows.length; j++) {
-                            var row = $('<tr>');
+                            // Tambahkan data ke dalam div
+                            var container = $('<div>').addClass('container');
+                            // Tambahkan judul kolom
+                            var headerRow = $('<div>').addClass('row fw-bold');
                             for (var k = 0; k < columnsToDisplay.length; k++) {
-                                var columnIndex = columnsToDisplay[k];
-                                row.append($('<td>').text(rows[j][columnIndex]));
+                                headerRow.append($('<div>').addClass('col').text(columnTitles[k]));
                             }
-                            table.append(row);
-                        }
+                            container.append(headerRow);
+                            // Tambahkan data
+                            for (var j = 0; j < rows.length; j++) {
+                                var row = $('<div>').addClass('row');
+                                for (var k = 0; k < columnsToDisplay.length; k++) {
+                                    var columnIndex = columnsToDisplay[k];
+                                    row.append($('<div>').addClass('col').text(rows[j][columnIndex]));
+                                }
+                                container.append(row);
+                            }
 
-                        // Tambahkan tabel ke dalam dokumen
-                        $('#data-container').append(table);
+                            // Tambahkan div ke dalam dokumen
+                            $('#data-container').append(container);
+                        } else {
+                            console.log('Data tidak tersedia atau tidak valid.');
+                        }
+                    }).fail(function() {
+                        console.log('Gagal mengambil data dari spreadsheet.');
                     });
                 }
             }
+        }).fail(function() {
+            console.log('Gagal mengambil metadata tentang spreadsheet.');
         });
     });
 </script>
