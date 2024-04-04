@@ -84,7 +84,7 @@
                         if (sheetData && sheetData.values && sheetData.values.length > 0) {
                             var rows = sheetData.values;
 
-                            // Tambahkan data ke dalam div
+                            // Tambahkan data ke dalam div dengan gaya Bootstrap
                             var container = $('<div>').addClass('container');
                             // Tambahkan judul kolom
                             var headerRow = $('<div>').addClass('row fw-bold');
@@ -102,7 +102,7 @@
                                 container.append(row);
                             }
 
-                            // Tambahkan div ke dalam dokumen
+                            // Tambahkan div dengan gaya Bootstrap ke dalam dokumen
                             $('#data-container').append(container);
                         } else {
                             console.log('Data tidak tersedia atau tidak valid.');
