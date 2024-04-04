@@ -63,21 +63,6 @@
         </div>
     </div>
     <canvas id="pieChart"></canvas>
-
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <p>Total Rak : <span id="totalRak"></span></p>
-        </div>
-        <div class="col-md-4">
-            <p>Total Rak Utuh : <span id="totalRakUtuh"></span></p>
-        </div>
-        <div class="col-md-4">
-            <p>Total Butir Utuh : <span id="totalButirUtuh"></span></p>
-        </div>
-        <div class="col-md-4">
-            <p>Total Butir : <span id="totalButir"></span></p>
-        </div>
-    </div>
     <canvas id="barChart"></canvas>
 </div>
 
@@ -198,23 +183,7 @@
                                 }
                             });
 
-                            // Hitung total Rak Utuh
-                            var totalRak = parseInt(rows[0][7] || 0);
-
-                            // Hitung total Rak Utuh dan total Butir utuh
-                            var totalRakUtuh = rows.reduce((total2, row) => total2 + parseInt(row[7] || 0), 0);
-                            var totalButirUtuh = rows.reduce((total2, row) => total2 + parseInt(row[8] || 0), 0);
-
-                            // Hitung total Butir Utuh
-                            var totalButir = parseInt(rows[0][8] || 0);
-
-
-                            // Tampilkan total Rak, total rak utuh, total butir utuh, dan total butir
-                            $('#totalRak').text(totalRak);
-                            $('#totalRakUtuh').text(totalRakUtuh);
-                            $('#totalButirUtuh').text(totalButirUtuh);
-                            $('#totalButir').text(totalButir);
-
+                            
                             // Tambahkan grafik bar
                             var ctx2 = document.getElementById('barChart').getContext('2d');
                             var barChart = new Chart(ctx2, {
