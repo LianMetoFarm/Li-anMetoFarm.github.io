@@ -48,7 +48,7 @@
 <div class="container">
     <h1 class="my-4">Data Kandang Ayam</h1>
     <div class="table-responsive" id="data-container"></div>
-    <canvas id="myChart"></canvas>
+    <canvas id="pieChart"></canvas>
     <div class="row mt-4">
         <div class="col-md-12">
             <p>Total Ayam Masuk : <span id="totalAyam"></span></p>
@@ -155,7 +155,7 @@
                             $('#totalSisaAyam').text(totalSisaAyam);
 
                             // Tambahkan grafik
-                            var ctx = document.getElementById('myChart').getContext('2d');
+                            var ctx = document.getElementById('pieChart').getContext('2d');
                             var myChart = new Chart(ctx, {
                                 type: 'pie',
                                 data: {
@@ -183,43 +183,45 @@
                                 }
                             });
 
-                            // Prepare data for bar chart
-                            var labels = [];
-                            var data = [];
+                            // Hitung total ayam
+                            var totalAyam = parseInt(rows[0][6] || 0);
 
-                            // Iterate through rows to extract required data
-                            for (var j = 0; j < rows.length; j++) {
-                                labels.push(rows[j][1]); // Assuming Tanggal is in the second column (index 1)
-                                data.push([rows[j][7], rows[j][8], rows[j][9], rows[j][10], rows[j][11], rows[j][12]]);
-                            }
+                            // Hitung total ayam mati dan total ayam afkir
+                            var totalAyamMati = rows.reduce((total, row) => total + parseInt(row[4] || 0), 0);
+                            var totalAyamAfkir = rows.reduce((total, row) => total + parseInt(row[5] || 0), 0);
 
-                            // Create bar chart
-                            var barCtx = document.getElementById('barChart').getContext('2d');
-                            var barChart = new Chart(barCtx, {
+                            // Hitung total sisa ayam
+                            var totalSisaAyam = parseInt(rows[0][6] || 0) - totalAyamMati - totalAyamAfkir;
+
+
+                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, dan total ayam
+                            $('#totalAyam').text(totalAyam);
+                            $('#totalAyamMati').text(totalAyamMati);
+                            $('#totalAyamAfkir').text(totalAyamAfkir);
+                            $('#totalSisaAyam').text(totalSisaAyam);
+
+                            // Tambahkan grafik
+                            var ctx = document.getElementById('myChart').getContext('2d');
+                            var myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: 'Rak dan Butir',
-                                        data: data,
-                                        backgroundColor: [
-                                            'rgba(255, 99, 132, 0.2)',
-                                            'rgba(54, 162, 235, 0.2)',
-                                            'rgba(255, 206, 86, 0.2)',
-                                            'rgba(75, 192, 192, 0.2)',
-                                            'rgba(153, 102, 255, 0.2)',
-                                            'rgba(255, 159, 64, 0.2)'
-                                        ],
-                                        borderColor: [
-                                            'rgba(255, 99, 132, 1)',
-                                            'rgba(54, 162, 235, 1)',
-                                            'rgba(255, 206, 86, 1)',
-                                            'rgba(75, 192, 192, 1)',
-                                            'rgba(153, 102, 255, 1)',
-                                            'rgba(255, 159, 64, 1)'
-                                        ],
-                                        borderWidth: 1
-                                    }]
+                                    labels: rows.map(row => row[1]), // Menggunakan kolom kedua sebagai label (misalnya, tanggal)
+                                    datasets: [
+                                        {
+                                            label: 'Ayam Mati',
+                                            data: rows.map(row => parseInt(row[4])), // Menggunakan kolom kelima sebagai data (misalnya, jumlah ayam mati)
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            borderColor: 'rgba(255, 99, 132, 1)',
+                                            borderWidth: 1
+                                        },
+                                        {
+                                            label: 'Ayam Afkir',
+                                            data: rows.map(row => parseInt(row[5])), // Menggunakan kolom keenam sebagai data (misalnya, jumlah ayam afkir)
+                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                            borderColor: 'rgba(54, 162, 235, 1)',
+                                            borderWidth: 1
+                                        }
+                                    ]
                                 },
                                 options: {
                                     scales: {
