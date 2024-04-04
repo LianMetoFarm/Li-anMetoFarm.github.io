@@ -51,6 +51,7 @@
     <h1 class="my-4">Data Kandang Ayam</h1>
     <div class="table-responsive" id="data-container"></div>
     <canvas id="myChart"></canvas>
+    <div id="totals"></div>
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
@@ -123,6 +124,16 @@
 
                             // Tambahkan tabel ke dalam dokumen
                             $('#data-container').append(table);
+
+                            // Hitung total ayam mati dan total ayam afkir
+                            var totalAyamMati = rows.reduce((total, row) => total + parseInt(row[4] || 0), 0);
+                            var totalAyamAfkir = rows.reduce((total, row) => total + parseInt(row[5] || 0), 0);
+
+                            // Tambahkan informasi total ke dalam dokumen
+                            var totalsDiv = $('<div>').addClass('mt-4');
+                            totalsDiv.append($('<p>').text('Total Ayam Mati: ' + totalAyamMati));
+                            totalsDiv.append($('<p>').text('Total Ayam Afkir: ' + totalAyamAfkir));
+                            $('#totals').append(totalsDiv);
 
                             // Tambahkan grafik
                             var ctx = document.getElementById('myChart').getContext('2d');
