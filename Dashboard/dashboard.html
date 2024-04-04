@@ -45,69 +45,69 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    // API key untuk Google Sheets API
-    var apiKey = 'AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc';
-    // ID dari spreadsheet
-    var spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
+    $(document).ready(function() {
+        // API key untuk Google Sheets API
+        var apiKey = 'AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc';
+        // ID dari spreadsheet
+        var spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
 
-    // Daftar nama sheet yang ingin diambil
-    var sheetNames = ['Kandang 1'];
+        // Daftar nama sheet yang ingin diambil
+        var sheetNames = ['Kandang 1'];
 
-    // Kolom yang ingin ditampilkan (indeks dimulai dari 0)
-    var columnsToDisplay = [0, 1, 4, 5]; // Kolom A (0), B (1), dan E (4)
-    var columnTitles = ['Id', 'Tanggal', 'Ayam Mati', 'Ayam Afkir']; // Judul Kolom
+        // Kolom yang ingin ditampilkan (indeks dimulai dari 0)
+        var columnsToDisplay = [0, 1, 4, 5]; // Kolom A (0), B (1), dan E (4)
+        var columnTitles = ['Id', 'Tanggal', 'Ayam Mati', 'Ayam Afkir']; // Judul Kolom
 
-    // Endpoint API untuk mendapatkan metadata tentang spreadsheet
-    var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
-    var url = baseUrl + spreadsheetId + '?key=' + apiKey;
+        // Endpoint API untuk mendapatkan metadata tentang spreadsheet
+        var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
+        var url = baseUrl + spreadsheetId + '?key=' + apiKey;
 
-    // Ambil metadata tentang spreadsheet
-    $.get(url, function(data) {
-        var sheets = data.sheets;
+        // Ambil metadata tentang spreadsheet
+        $.get(url, function(data) {
+            var sheets = data.sheets;
 
-        // Loop melalui setiap sheet
-        for (var i = 0; i < sheets.length; i++) {
-            var sheet = sheets[i];
-            var sheetTitle = sheet.properties.title;
+            // Loop melalui setiap sheet
+            for (var i = 0; i < sheets.length; i++) {
+                var sheet = sheets[i];
+                var sheetTitle = sheet.properties.title;
 
-            // Jika sheet ada dalam daftar yang diinginkan
-            if (sheetNames.includes(sheetTitle)) {
-                var sheetId = sheet.properties.sheetId;
+                // Jika sheet ada dalam daftar yang diinginkan
+                if (sheetNames.includes(sheetTitle)) {
+                    var sheetId = sheet.properties.sheetId;
 
-                // Endpoint API untuk mendapatkan data dari sheet tertentu
-                var range = sheetTitle + '!A11:U100';
-                var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
+                    // Endpoint API untuk mendapatkan data dari sheet tertentu
+                    var range = sheetTitle + '!A11:U100';
+                    var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
 
-                // Ambil data dari sheet
-                $.get(sheetUrl, function(sheetData) {
-                    var rows = sheetData.values;
+                    // Ambil data dari sheet
+                    $.get(sheetUrl, function(sheetData) {
+                        var rows = sheetData.values;
 
-                    // Tambahkan data ke dalam tabel
-                    var table = $('<table>').addClass('table table-striped table-hover');
-                    // Tambahkan judul kolom
-                    var headerRow = $('<tr>');
-                    for (var k = 0; k < columnsToDisplay.length; k++) {
-                        headerRow.append($('<th>').text(columnTitles[k]));
-                    }
-                    table.append(headerRow);
-                    // Tambahkan data
-                    for (var j = 0; j < rows.length; j++) {
-                        var row = $('<tr>');
+                        // Tambahkan data ke dalam tabel
+                        var table = $('<table>').addClass('table table-striped table-hover');
+                        // Tambahkan judul kolom
+                        var headerRow = $('<tr>');
                         for (var k = 0; k < columnsToDisplay.length; k++) {
-                            var columnIndex = columnsToDisplay[k];
-                            row.append($('<td>').text(rows[j][columnIndex]));
+                            headerRow.append($('<th>').text(columnTitles[k]));
                         }
-                        table.append(row);
-                    }
+                        table.append(headerRow);
+                        // Tambahkan data
+                        for (var j = 0; j < rows.length; j++) {
+                            var row = $('<tr>');
+                            for (var k = 0; k < columnsToDisplay.length; k++) {
+                                var columnIndex = columnsToDisplay[k];
+                                row.append($('<td>').text(rows[j][columnIndex]));
+                            }
+                            table.append(row);
+                        }
 
-                    // Tambahkan tabel ke dalam dokumen
-                    $('#data-container').append(table);
-                });
+                        // Tambahkan tabel ke dalam dokumen
+                        $('#data-container').append(table);
+                    });
+                }
             }
-        }
+        });
     });
-});
 </script>
 
 </body>
