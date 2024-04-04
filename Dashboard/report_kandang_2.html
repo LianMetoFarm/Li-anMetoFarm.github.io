@@ -197,22 +197,22 @@
                                 }
                             });
 
-                            // Hitung total ayam
-                            var totalAyam = parseInt(rows[0][6] || 0);
+                            // Hitung total Rak Utuh
+                            var totalRak = parseInt(rows[0][7] || 0);
 
-                            // Hitung total ayam mati dan total ayam afkir
-                            var totalAyamMati = rows.reduce((total, row) => total + parseInt(row[4] || 0), 0);
-                            var totalAyamAfkir = rows.reduce((total, row) => total + parseInt(row[5] || 0), 0);
+                            // Hitung total Rak Utuh dan total Butir utuh
+                            var totalRakUtuh = rows.reduce((total, row) => total + parseInt(row[7] || 0), 0);
+                            var totalButirUtuh = rows.reduce((total, row) => total + parseInt(row[8] || 0), 0);
 
-                            // Hitung total sisa ayam
-                            var totalSisaAyam = parseInt(rows[0][6] || 0) - totalAyamMati - totalAyamAfkir;
+                            // Hitung total Butir Utuh
+                            var totalButir = parseInt(rows[0][8] || 0) - totalRakUtuh - totalButirUtuh;
 
 
                             // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, dan total ayam
-                            $('#totalAyam').text(totalAyam);
-                            $('#totalAyamMati').text(totalAyamMati);
-                            $('#totalAyamAfkir').text(totalAyamAfkir);
-                            $('#totalSisaAyam').text(totalSisaAyam);
+                            $('#totalAyam').text(totalRak);
+                            $('#totalAyamMati').text(totalRakUtuh);
+                            $('#totalAyamAfkir').text(totalButirUtuh);
+                            $('#totalSisaAyam').text(totalButir);
 
                             // Tambahkan grafik
                             var ctx = document.getElementById('barChart').getContext('2d');
