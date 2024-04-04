@@ -12,11 +12,33 @@
         overflow: scroll;
     }
 
-    thead, th {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    thead th {
+        background-color: #f8f9fa; /* Ganti warna latar belakang sesuai kebutuhan */
         position: sticky;
         top: 0;
-        background-color: #f8f9fa; /* Ganti warna latar belakang sesuai kebutuhan */
-        z-index: 999; /* Atur z-index agar tetap di atas konten tabel */
+        z-index: 999;
+    }
+
+    tbody td {
+        background-color: #fff;
     }
 </style>
 </head>
