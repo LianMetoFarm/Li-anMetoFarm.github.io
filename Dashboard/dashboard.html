@@ -56,7 +56,7 @@
 
         // Kolom yang ingin ditampilkan (indeks dimulai dari 0)
         var columnsToDisplay = [0, 1, 4, 5]; // Kolom A (0), B (1), dan E (4)
-        var columnTitles = ['Id', 'Tanggal', 'Ayam Mati', 'Ayam Mati']; // Judul Kolom
+        var columnTitles = ['Id', 'Tanggal', 'Ayam Mati', 'Ayam Afkir']; // Judul Kolom
 
         // Endpoint API untuk mendapatkan metadata tentang spreadsheet
         var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
@@ -84,26 +84,26 @@
                         if (sheetData && sheetData.values && sheetData.values.length > 0) {
                             var rows = sheetData.values;
 
-                            // Tambahkan data ke dalam div dengan gaya Bootstrap
-                            var container = $('<div>').addClass('container');
+                            // Tambahkan data ke dalam tabel
+                            var table = $('<table>').addClass('table table-dark table-striped table-hover');
                             // Tambahkan judul kolom
-                            var headerRow = $('<div>').addClass('row fw-bold');
+                            var headerRow = $('<tr>');
                             for (var k = 0; k < columnsToDisplay.length; k++) {
-                                headerRow.append($('<div>').addClass('col').text(columnTitles[k]));
+                                headerRow.append($('<th>').text(columnTitles[k]));
                             }
-                            container.append(headerRow);
+                            table.append(headerRow);
                             // Tambahkan data
                             for (var j = 0; j < rows.length; j++) {
-                                var row = $('<div>').addClass('row');
+                                var row = $('<tr>');
                                 for (var k = 0; k < columnsToDisplay.length; k++) {
                                     var columnIndex = columnsToDisplay[k];
-                                    row.append($('<div>').addClass('col').text(rows[j][columnIndex]));
+                                    row.append($('<td>').text(rows[j][columnIndex]));
                                 }
-                                container.append(row);
+                                table.append(row);
                             }
 
-                            // Tambahkan div dengan gaya Bootstrap ke dalam dokumen
-                            $('#data-container').append(container);
+                            // Tambahkan tabel ke dalam dokumen
+                            $('#data-container').append(table);
                         } else {
                             console.log('Data tidak tersedia atau tidak valid.');
                         }
