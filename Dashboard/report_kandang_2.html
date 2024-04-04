@@ -205,7 +205,7 @@
                             var totalButirUtuh = rows.reduce((total, row) => total + parseInt(row[8] || 0), 0);
 
                             // Hitung total Butir Utuh
-                            var totalButir = parseInt(rows[0][8] || 0) - totalRakUtuh - totalButirUtuh;
+                            var totalButir = parseInt(rows[0][8] || 0);
 
 
                             // Tampilkan total Rak, total rak utuh, total butir utuh, dan total butir
