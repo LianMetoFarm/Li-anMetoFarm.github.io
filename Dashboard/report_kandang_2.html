@@ -47,7 +47,23 @@
 
 <div class="container">
     <h1 class="my-4">Data Kandang 2</h1>
-    <div class="table-responsive" id="data-container"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="table-responsive" id="data-container"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row mt-4">
         <div class="col-md-12">
             <p>Total Ayam Masuk : <span id="totalAyam"></span></p>
@@ -62,8 +78,6 @@
             <p>Total Sisa Ayam : <span id="totalSisaAyam"></span></p>
         </div>
     </div>
-    <canvas id="pieChart"></canvas>
-
     <div class="row mt-4">
         <div class="col-md-4">
             <p>Total Rak Utuh : <span id="totalRakUtuh"></span></p>
@@ -84,7 +98,6 @@
             <p>Total Butir Pecah : <span id="totalButirPecah"></span></p>
         </div>
     </div>
-    <canvas id="barChart"></canvas>
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
