@@ -181,6 +181,53 @@
                                     }
                                 }
                             });
+
+                            // Prepare data for bar chart
+                            var labels = [];
+                            var data = [];
+
+                            // Iterate through rows to extract required data
+                            for (var j = 0; j < rows.length; j++) {
+                                labels.push(rows[j][1]); // Assuming Tanggal is in the second column (index 1)
+                                data.push([rows[j][7], rows[j][8], rows[j][9], rows[j][10], rows[j][11], rows[j][12]]);
+                            }
+
+                            // Create bar chart
+                            var barCtx = document.getElementById('barChart').getContext('2d');
+                            var barChart = new Chart(barCtx, {
+                                type: 'bar',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Rak dan Butir',
+                                        data: data,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
                         } else {
                             console.log('Data tidak tersedia atau tidak valid.');
                         }
