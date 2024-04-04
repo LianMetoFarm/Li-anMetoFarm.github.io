@@ -63,6 +63,7 @@
         </div>
     </div>
     <canvas id="pieChart"></canvas>
+
     <div class="row mt-4">
         <div class="col-md-12">
             <p>Total Rak : <span id="totalRak"></span></p>
@@ -209,10 +210,10 @@
 
 
                             // Tampilkan total Rak, total rak utuh, total butir utuh, dan total butir
-                            $('#totalAyam').text(totalRak);
-                            $('#totalAyamMati').text(totalRakUtuh);
-                            $('#totalAyamAfkir').text(totalButirUtuh);
-                            $('#totalSisaAyam').text(totalButir);
+                            $('#totalRak').text(totalRak);
+                            $('#totalRakUtuh').text(totalRakUtuh);
+                            $('#totalButirUtuh').text(totalButirUtuh);
+                            $('#totalButir').text(totalButir);
 
                             // Tambahkan grafik
                             var ctx2 = document.getElementById('barChart').getContext('2d');
