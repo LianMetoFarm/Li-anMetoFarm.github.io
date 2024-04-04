@@ -62,9 +62,6 @@
         var columnsToDisplay = [0, 1, 4, 5, 6]; // Kolom A (0), B (1), dan E (4)
         var columnTitles = ['Id', 'Tanggal', 'Ayam Mati', 'Ayam Afkir', 'Sisa Ayam']; // Judul Kolom
 
-        // Array data ID dimulai dari angka 1
-        var idArray = [];
-
         // Endpoint API untuk mendapatkan metadata tentang spreadsheet
         var baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets/';
         var url = baseUrl + spreadsheetId + '?key=' + apiKey;
@@ -83,7 +80,7 @@
                     var sheetId = sheet.properties.sheetId;
 
                     // Endpoint API untuk mendapatkan data dari sheet tertentu
-                    var range = sheetTitle + '!B11:U100';
+                    var range = sheetTitle + '!A11:U100';
                     var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
 
                     // Ambil data dari sheet
@@ -106,8 +103,6 @@
                             // Tambahkan data
                             for (var j = 0; j < rows.length; j++) {
                                 var row = $('<tr>');
-                                // Ubah pengambilan nilai ID menggunakan array data dimulai dari angka 1
-                                row.append($('<td>').text(idArray[j] || ""));
                                 for (var k = 0; k < columnsToDisplay.length; k++) {
                                     var columnIndex = columnsToDisplay[k];
                                     row.append($('<td>').text(rows[j][columnIndex]));
