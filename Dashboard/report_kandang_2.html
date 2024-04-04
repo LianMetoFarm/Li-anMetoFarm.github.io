@@ -208,7 +208,7 @@
                             var totalButir = parseInt(rows[0][8] || 0) - totalRakUtuh - totalButirUtuh;
 
 
-                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, dan total ayam
+                            // Tampilkan total Rak, total rak utuh, total butir utuh, dan total butir
                             $('#totalAyam').text(totalRak);
                             $('#totalAyamMati').text(totalRakUtuh);
                             $('#totalAyamAfkir').text(totalButirUtuh);
@@ -222,15 +222,15 @@
                                     labels: rows.map(row => row[1]), // Menggunakan kolom kedua sebagai label (misalnya, tanggal)
                                     datasets: [
                                         {
-                                            label: 'Ayam Mati',
-                                            data: rows.map(row => parseInt(row[4])), // Menggunakan kolom kelima sebagai data (misalnya, jumlah ayam mati)
+                                            label: 'Rak Utuh',
+                                            data: rows.map(row => parseInt(row[7])), // Menggunakan kolom kelima sebagai data (misalnya, jumlah Rak utuh)
                                             backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                             borderColor: 'rgba(255, 99, 132, 1)',
                                             borderWidth: 1
                                         },
                                         {
-                                            label: 'Ayam Afkir',
-                                            data: rows.map(row => parseInt(row[5])), // Menggunakan kolom keenam sebagai data (misalnya, jumlah ayam afkir)
+                                            label: 'Butir Utuh',
+                                            data: rows.map(row => parseInt(row[8])), // Menggunakan kolom keenam sebagai data (misalnya, jumlah Butir utuh)
                                             backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                             borderColor: 'rgba(54, 162, 235, 1)',
                                             borderWidth: 1
