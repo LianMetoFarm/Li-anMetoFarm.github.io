@@ -50,8 +50,9 @@
 <div class="container">
     <h1 class="my-4">Data Kandang Ayam</h1>
     <div class="table-responsive" id="data-container"></div>
-    <canvas id="myChart"></canvas>
+    <h1 class="my-4">Grafik Table</h1>
     <div id="totals"></div>
+    <canvas id="myChart"></canvas>
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
@@ -92,7 +93,7 @@
                     var sheetId = sheet.properties.sheetId;
 
                     // Endpoint API untuk mendapatkan data dari sheet tertentu
-                    var range = sheetTitle + '!A11:U100';
+                    var range = sheetTitle + '!A11:U';
                     var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
 
                     // Ambil data dari sheet
