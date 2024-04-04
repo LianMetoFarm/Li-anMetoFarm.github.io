@@ -59,7 +59,7 @@
         var sheetNames = ['Kandang 2'];
 
         // Kolom yang ingin ditampilkan (indeks dimulai dari 0)
-        var columnsToDisplay = [0, 1, 5, 6, 7]; // Kolom A (0), B (1), dan E (4)
+        var columnsToDisplay = [0, 1, 4, 5, 6]; // Kolom A (0), B (1), dan E (4)
         var columnTitles = ['No', 'Tanggal', 'Ayam Mati', 'Ayam Afkir', 'Sisa Ayam']; // Judul Kolom
 
         // Endpoint API untuk mendapatkan metadata tentang spreadsheet
@@ -105,7 +105,7 @@
                                 var row = $('<tr>');
                                 // Tambahkan nomor urut
                                 row.append($('<td>').text(j + 1));
-                                for (var k = 0; k < columnsToDisplay.length; k++) {
+                                for (var k = 1; k < columnsToDisplay.length; k++) {
                                     var columnIndex = columnsToDisplay[k];
                                     row.append($('<td>').text(rows[j][columnIndex]));
                                 }
