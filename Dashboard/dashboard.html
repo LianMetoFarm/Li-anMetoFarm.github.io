@@ -36,7 +36,7 @@
         max-height: 200px;
         overflow: scroll;
     }
-    
+
     th, thead{
         position: sticky;
         top: 0;
@@ -47,7 +47,7 @@
 
 <div class="container">
     <h1 class="my-4">Data Kandang Ayam</h1>
-    <div id="data-container"></div>
+    <div class="table-responsive" id="data-container"></div>
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
@@ -96,7 +96,7 @@
                             var rows = sheetData.values;
 
                             // Tambahkan data ke dalam tabel
-                            var table = $('<table>').addClass('table table-responsive');
+                            var table = $('<table>').addClass('table');
                             // Tambahkan judul kolom
                             var headerRow = $('<tr>');
                             for (var k = 0; k < columnsToDisplay.length; k++) {
