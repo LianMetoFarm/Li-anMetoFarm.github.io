@@ -80,7 +80,7 @@
                     var sheetId = sheet.properties.sheetId;
 
                     // Endpoint API untuk mendapatkan data dari sheet tertentu
-                    var range = sheetTitle + '!B11:U100';
+                    var range = sheetTitle + '!A11:U100';
                     var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
 
                     // Ambil data dari sheet
@@ -105,7 +105,7 @@
                                 var row = $('<tr>');
                                 // Tambahkan nomor urut
                                 row.append($('<td>').text(j + 1));
-                                for (var k = 1; k < columnsToDisplay.length; k++) {
+                                for (var k = 0; k < columnsToDisplay.length; k++) {
                                     var columnIndex = columnsToDisplay[k];
                                     row.append($('<td>').text(rows[j][columnIndex]));
                                 }
