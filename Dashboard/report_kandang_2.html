@@ -169,8 +169,8 @@
                             $('#totalSisaAyam').text(totalSisaAyam);
 
                             // Tambahkan grafik
-                            var ctx = document.getElementById('pieChart').getContext('2d');
-                            var myChart = new Chart(ctx, {
+                            var ctx1 = document.getElementById('pieChart').getContext('2d');
+                            var pieChart = new Chart(ctx1, {
                                 type: 'pie',
                                 data: {
                                     labels: ['Ayam Mati', 'Ayam Afkir'],
@@ -215,8 +215,8 @@
                             $('#totalSisaAyam').text(totalButir);
 
                             // Tambahkan grafik
-                            var ctx = document.getElementById('barChart').getContext('2d');
-                            var myChart = new Chart(ctx, {
+                            var ctx2 = document.getElementById('barChart').getContext('2d');
+                            var barChart = new Chart(ctx2, {
                                 type: 'bar',
                                 data: {
                                     labels: rows.map(row => row[1]), // Menggunakan kolom kedua sebagai label (misalnya, tanggal)
