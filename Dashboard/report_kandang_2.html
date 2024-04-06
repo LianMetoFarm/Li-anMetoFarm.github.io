@@ -160,38 +160,35 @@
                             $('#totalButirPecah').text(totalButirPecah);
 
                             // Tambahkan grafik pie
-                            var pieChartCanvas = document.getElementById('pieChart');
-                            var pieChartData = {
-                                labels: ['Ayam Mati', 'Ayam Afkir'],
-                                datasets: [{
-                                    label: 'Ayam',
-                                    data: [totalAyamMati, totalAyamAfkir],
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            };
-                            var pieChartOptions = {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
+                            var ctx1 = document.getElementById('pieChart').getContext('2d');
+                            var pieChart = new Chart(ctx1, {
+                                type: 'pie',
+                                data: {
+                                    labels: ['Ayam Mati', 'Ayam Afkir'],
+                                    datasets: [{
+                                        label: 'Ayam',
+                                        data: [totalAyamMati, totalAyamAfkir],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
                                     }
                                 }
-                            };
-                            new Chart(pieChartCanvas, {
-                                type: 'pie',
-                                data: pieChartData,
-                                options: pieChartOptions
                             });
 
-                            // Tambahkan grafik bar
-                            var barChartCanvas = document.getElementById('barChart');
+                            // Tambahkan data untuk grafik bar
                             var barChartData = {
                                 labels: rows.map(row => row[1]), // Menggunakan kolom kedua sebagai label (misalnya, tanggal)
                                 datasets: [
@@ -239,17 +236,30 @@
                                     }
                                 ]
                             };
-                            var barChartOptions = {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            };
-                            new Chart(barChartCanvas, {
+
+                            // Tambahkan garis rata-rata produksi telur
+                            var avgEggProduction = rows.reduce((total, row) => total + parseInt(row[8]), 0) / rows.length;
+                            barChartData.datasets.push({
+                                type: 'line',
+                                label: 'Rata-rata Produksi Telur',
+                                data: Array(rows.length).fill(avgEggProduction),
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 2,
+                                fill: false
+                            });
+
+                            // Tampilkan grafik bar
+                            var ctx2 = document.getElementById('barChart').getContext('2d');
+                            var barChart = new Chart(ctx2, {
                                 type: 'bar',
                                 data: barChartData,
-                                options: barChartOptions
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
                             });
                         } else {
                             console.log('Data tidak tersedia atau tidak valid.');
