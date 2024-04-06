@@ -10,9 +10,11 @@
     .table-responsive {
         height: 400px;
         overflow: scroll;
+        
     }
 
     table {
+        /* width: 720px; */
         border-collapse: collapse;
     }
 
@@ -30,11 +32,11 @@
     }
 
     thead th {
-        background-color: #356ea7;
+        background-color: #356ea7; /* Ganti warna latar belakang sesuai kebutuhan */
         position: sticky;
         top: 0;
         z-index: 999;
-        opacity: 1;
+        opacity: 1; /* Mengubah opacity menjadi 1 */
     }
 
     tbody td {
@@ -66,14 +68,7 @@
                     <p>Total Sisa Ayam : <span id="totalSisaAyam"></span></p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="chart-container">
-                        <canvas id="pieChart"></canvas>
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
-            </div>
+            <canvas id="pieChart"></canvas>
         </div>
         <div class="col-md-6">
             <div class="row mt-4">
@@ -90,6 +85,7 @@
                     <p>Total Butir Pecah : <span id="totalButirPecah"></span></p>
                 </div>
             </div>
+            <canvas id="barChart"></canvas>
         </div>
     </div>
 </div>
@@ -224,6 +220,7 @@
                                 }
                             });
 
+                            
                             // Tambahkan grafik bar
                             var ctx2 = document.getElementById('barChart').getContext('2d');
                             var barChart = new Chart(ctx2, {
