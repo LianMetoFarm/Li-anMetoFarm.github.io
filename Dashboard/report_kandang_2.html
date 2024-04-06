@@ -151,7 +151,15 @@
                             var averageRakUtuh = totalRakUtuh / rows.length;
 
                             // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah
-                            $('#totalAyam').text(totalAyam);
+                            $('#totalAyam').prop('Counter', 0).animate({
+                                Counter: totalAyam
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
                             $('#totalAyamMati').text(totalAyamMati);
                             $('#totalAyamAfkir').text(totalAyamAfkir);
                             $('#totalSisaAyam').text(totalSisaAyam);
