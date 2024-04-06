@@ -55,6 +55,7 @@
                 <div class="col-md-4">
                     <p>Total Rak Utuh : <span id="totalRakUtuh"></span></p>
                     <p>Total Butir Utuh : <span id="totalButirUtuh"></span></p>
+                    <p>Rata-rata Produksi Rak Utuh : <span id="averageRakUtuh"></span></p>
                 </div>
                 <div class="col-md-4">
                     <p>Total Rak Retak : <span id="totalRakRetak"></span></p>
@@ -126,7 +127,11 @@
                             $('#data-container').html('<table id="data-table" class="table table-striped text-success table-border"></table>');
                             $('#data-table').DataTable({
                                 data: rows,
-                                columns: columnTitles.map(title => ({title: title}))
+                                columns: columnTitles.map(function(title) {
+                                    return { title: title };
+                                }),
+                                paging: false,
+                                searching: false
                             });
 
                             // Hitung total ayam
@@ -147,6 +152,9 @@
                             var totalRakPecah = rows.reduce((total, row) => total + parseInt(row[11] || 0), 0);
                             var totalButirPecah = rows.reduce((total, row) => total + parseInt(row[12] || 0), 0);
 
+                            // Hitung nilai rata-rata produksi rak utuh
+                            var averageRakUtuh = totalRakUtuh / rows.length;
+
                             // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah
                             $('#totalAyam').text(totalAyam);
                             $('#totalAyamMati').text(totalAyamMati);
@@ -158,6 +166,7 @@
                             $('#totalButirRetak').text(totalButirRetak);
                             $('#totalRakPecah').text(totalRakPecah);
                             $('#totalButirPecah').text(totalButirPecah);
+                            $('#averageRakUtuh').text(averageRakUtuh.toFixed(2)); // Menampilkan nilai rata-rata dengan 2 angka di belakang koma
 
                             // Tambahkan grafik pie
                             var pieChartCanvas = document.getElementById('pieChart');
@@ -252,13 +261,13 @@
                                 options: barChartOptions
                             });
 
-                            // Tambahkan data produksi telur untuk grafik garis
-                            var eggProductionData = rows.map(row => parseInt(row[7])); // Menggunakan kolom keenambelas sebagai data (misalnya, produksi telur)
+                            // Hitung nilai rata-rata produksi rak utuh
+                            var averageRakUtuh = totalRakUtuh / rows.length;
 
-                            // Tambahkan garis naik turunnya produksi telur
+                            // Tambahkan dataset baru untuk nilai rata-rata produksi rak utuh
                             barChart.data.datasets.push({
-                                label: 'Produksi Telur',
-                                data: eggProductionData,
+                                label: 'Rata-rata Produksi Rak Utuh',
+                                data: Array(rows.length).fill(averageRakUtuh),
                                 type: 'line',
                                 fill: false,
                                 borderColor: 'rgba(255, 99, 71, 1)',
