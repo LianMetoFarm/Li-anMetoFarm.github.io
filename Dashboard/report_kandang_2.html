@@ -150,7 +150,7 @@
                             // Hitung rata-rata rak utuh
                             var averageRakUtuh = totalRakUtuh / rows.length;
 
-                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah
+                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah dengan animasi
                             $('#totalAyam').prop('Counter', 0).animate({
                                 Counter: totalAyam
                             }, {
@@ -160,15 +160,87 @@
                                     $(this).text(Math.ceil(now));
                                 }
                             });
-                            $('#totalAyamMati').text(totalAyamMati);
-                            $('#totalAyamAfkir').text(totalAyamAfkir);
-                            $('#totalSisaAyam').text(totalSisaAyam);
-                            $('#totalRakUtuh').text(totalRakUtuh + ' (Rata-rata: ' + averageRakUtuh.toFixed(2) + ')');
-                            $('#totalButirUtuh').text(totalButirUtuh);
-                            $('#totalRakRetak').text(totalRakRetak);
-                            $('#totalButirRetak').text(totalButirRetak);
-                            $('#totalRakPecah').text(totalRakPecah);
-                            $('#totalButirPecah').text(totalButirPecah);
+                            $('#totalAyamMati').prop('Counter', 0).animate({
+                                Counter: totalAyamMati
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalAyamAfkir').prop('Counter', 0).animate({
+                                Counter: totalAyamAfkir
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalSisaAyam').prop('Counter', 0).animate({
+                                Counter: totalSisaAyam
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakUtuh').prop('Counter', 0).animate({
+                                Counter: totalRakUtuh
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            }).append(' (Rata-rata: ' + averageRakUtuh.toFixed(2) + ')');
+                            $('#totalButirUtuh').prop('Counter', 0).animate({
+                                Counter: totalButirUtuh
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakRetak').prop('Counter', 0).animate({
+                                Counter: totalRakRetak
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalButirRetak').prop('Counter', 0).animate({
+                                Counter: totalButirRetak
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakPecah').prop('Counter', 0).animate({
+                                Counter: totalRakPecah
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalButirPecah').prop('Counter', 0).animate({
+                                Counter: totalButirPecah
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
 
                             // Tambahkan grafik pie
                             var pieChartCanvas = document.getElementById('pieChart');
