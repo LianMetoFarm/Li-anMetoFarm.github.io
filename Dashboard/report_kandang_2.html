@@ -147,12 +147,15 @@
                             var totalRakPecah = rows.reduce((total, row) => total + parseInt(row[11] || 0), 0);
                             var totalButirPecah = rows.reduce((total, row) => total + parseInt(row[12] || 0), 0);
 
+                            // Hitung rata-rata rak utuh
+                            var averageRakUtuh = totalRakUtuh / rows.length;
+
                             // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah
                             $('#totalAyam').text(totalAyam);
                             $('#totalAyamMati').text(totalAyamMati);
                             $('#totalAyamAfkir').text(totalAyamAfkir);
                             $('#totalSisaAyam').text(totalSisaAyam);
-                            $('#totalRakUtuh').text(totalRakUtuh);
+                            $('#totalRakUtuh').text(totalRakUtuh + ' (Rata-rata: ' + averageRakUtuh.toFixed(2) + ')');
                             $('#totalButirUtuh').text(totalButirUtuh);
                             $('#totalRakRetak').text(totalRakRetak);
                             $('#totalButirRetak').text(totalButirRetak);
@@ -252,19 +255,19 @@
                                 options: barChartOptions
                             });
 
-                            // Tambahkan data produksi telur untuk grafik garis
-                            var eggProductionData = rows.map(row => parseInt(row[7])); // Menggunakan kolom delapan sebagai data (misalnya, produksi telur)
+                            // Hitung rata-rata rak utuh
+                            var averageRakUtuh = totalRakUtuh / rows.length;
 
-                            // Tambahkan garis naik turunnya produksi telur
-                            barChart.data.datasets.push({
-                                label: 'Produksi Telur',
-                                data: eggProductionData,
-                                type: 'line',
-                                fill: false,
-                                borderColor: 'rgba(255, 99, 71, 1)',
-                                borderWidth: 2
+                            // Tambahkan rata-rata rak utuh ke grafik bar
+                            barChartData.datasets.push({
+                                label: 'Rata-rata Rak Utuh',
+                                data: Array(rows.length).fill(averageRakUtuh),
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
                             });
 
+                            // Update grafik bar
                             barChart.update();
                         } else {
                             console.log('Data tidak tersedia atau tidak valid.');
