@@ -255,19 +255,19 @@
                                 options: barChartOptions
                             });
 
-                            // Hitung rata-rata rak utuh
-                            var averageRakUtuh = totalRakUtuh / rows.length;
+                            // Tambahkan data produksi telur untuk grafik garis
+                            var eggProductionData = rows.map(row => parseInt(row[7])); // Menggunakan kolom delapan sebagai data (misalnya, produksi telur)
 
-                            // Tambahkan rata-rata rak utuh ke grafik bar
-                            barChartData.datasets.push({
-                                label: 'Rata-rata Rak Utuh',
-                                data: Array(rows.length).fill(averageRakUtuh),
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 1
+                            // Tambahkan garis naik turunnya produksi telur
+                            barChart.data.datasets.push({
+                                label: 'Produksi Telur',
+                                data: eggProductionData,
+                                type: 'line',
+                                fill: false,
+                                borderColor: 'rgba(255, 99, 71, 1)',
+                                borderWidth: 2
                             });
 
-                            // Update grafik bar
                             barChart.update();
                         } else {
                             console.log('Data tidak tersedia atau tidak valid.');
