@@ -22,6 +22,11 @@
 <body>
 
 <div class="container">
+    <h1 class="my-4">Data Kandang 2</h1>
+    <div class="table-responsive" id="data-container"></div>
+</div>
+
+<div class="container">
     <h2 class="my-4 text-center">Informasi Grafik</h2>
 </div>
 
@@ -66,11 +71,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <h1 class="my-4">Data Kandang 2</h1>
-    <div class="table-responsive" id="data-container"></div>
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
@@ -267,7 +267,7 @@
                                 }
                             });
 
-                            // Tambahkan grafik pie
+                            // Tambahkan grafik doughnut
                             var pieChartCanvas = document.getElementById('pieChart');
                             var pieChartData = {
                                 labels: ['Ayam Mati', 'Ayam Afkir'],
@@ -275,8 +275,8 @@
                                     label: 'Ayam',
                                     data: [totalAyamMati, totalAyamAfkir],
                                     backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)'
+                                        'rgba(255, 99, 132, 0.5)',
+                                        'rgba(54, 162, 235, 0.5)'
                                     ],
                                     borderColor: [
                                         'rgba(255, 99, 132, 1)',
@@ -286,14 +286,20 @@
                                 }]
                             };
                             var pieChartOptions = {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Ayam Mati vs Ayam Afkir'
                                     }
                                 }
                             };
                             new Chart(pieChartCanvas, {
-                                type: 'pie',
+                                type: 'doughnut',
                                 data: pieChartData,
                                 options: pieChartOptions
                             });
