@@ -142,9 +142,12 @@
                             // Hitung total per bulan untuk grafik batang
                             var monthlyData = {};
                             rows.forEach(function(row) {
-                                var month = new Date(row[1]).getMonth() + 1; // Ambil bulan dari kolom kedua (tanggal) dan tambahkan 1 karena bulan dimulai dari 0
-                                if (!monthlyData[month]) {
-                                    monthlyData[month] = {
+                                var date = new Date(row[1]);
+                                var year = date.getFullYear();
+                                var month = date.getMonth() + 1; // Ambil bulan dari kolom kedua (tanggal) dan tambahkan 1 karena bulan dimulai dari 0
+                                var label = year + '-' + (month < 10 ? '0' + month : month); // Format label bulan dengan tahun (misalnya, 2022-01)
+                                if (!monthlyData[label]) {
+                                    monthlyData[label] = {
                                         totalRakUtuh: 0,
                                         totalButirUtuh: 0,
                                         totalRakRetak: 0,
@@ -153,12 +156,12 @@
                                         totalButirPecah: 0
                                     };
                                 }
-                                monthlyData[month].totalRakUtuh += parseInt(row[7] || 0);
-                                monthlyData[month].totalButirUtuh += parseInt(row[8] || 0);
-                                monthlyData[month].totalRakRetak += parseInt(row[9] || 0);
-                                monthlyData[month].totalButirRetak += parseInt(row[10] || 0);
-                                monthlyData[month].totalRakPecah += parseInt(row[11] || 0);
-                                monthlyData[month].totalButirPecah += parseInt(row[12] || 0);
+                                monthlyData[label].totalRakUtuh += parseInt(row[7] || 0);
+                                monthlyData[label].totalButirUtuh += parseInt(row[8] || 0);
+                                monthlyData[label].totalRakRetak += parseInt(row[9] || 0);
+                                monthlyData[label].totalButirRetak += parseInt(row[10] || 0);
+                                monthlyData[label].totalRakPecah += parseInt(row[11] || 0);
+                                monthlyData[label].totalButirPecah += parseInt(row[12] || 0);
                             });
 
                             // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah dengan animasi
@@ -233,9 +236,12 @@
                             // Tambahkan grafik bar
                             var barChartCanvas = document.getElementById('barChart');
                             var barChartData = {
-                                labels: Object.keys(monthlyData).map(month => {
+                                labels: Object.keys(monthlyData).map(label => {
+                                    var parts = label.split('-');
+                                    var year = parts[0];
+                                    var month = parseInt(parts[1]);
                                     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                                    return monthNames[parseInt(month) - 1]; // Ambil nama bulan dari array monthNames berdasarkan nomor bulan
+                                    return monthNames[month - 1] + ' ' + year; // Ambil nama bulan dari array monthNames berdasarkan nomor bulan dan tambahkan tahun
                                 }),
                                 datasets: [
                                     {
