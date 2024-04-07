@@ -126,9 +126,9 @@
                             $('#data-container').html('<table id="data-table" class="table table-striped text-success table-border"></table>');
                             $('#data-table').DataTable({
                                 data: rows,
-                                columns: columnTitles.map(title => ({title: title}))
+                                columns: columnTitles.map(title => ({title: title})),
                                 lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                                pageLength: 5, // Set jumlah entri per halaman secara default
+                                pageLength: 5 // Set jumlah entri per halaman secara default
                             });
 
                             // Hitung total ayam
