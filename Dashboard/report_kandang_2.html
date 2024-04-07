@@ -114,7 +114,7 @@
                     var sheetId = sheet.properties.sheetId;
 
                     // Endpoint API untuk mendapatkan data dari sheet tertentu
-                    var range = sheetTitle + '!A11:U100';
+                    var range = sheetTitle + '!A11:U';
                     var sheetUrl = baseUrl + spreadsheetId + '/values/' + range + '?key=' + apiKey;
 
                     // Ambil data dari sheet
@@ -127,6 +127,8 @@
                             $('#data-table').DataTable({
                                 data: rows,
                                 columns: columnTitles.map(title => ({title: title}))
+                                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                                pageLength: 5 // Set jumlah entri per halaman secara default
                             });
 
                             // Hitung total ayam
