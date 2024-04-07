@@ -164,6 +164,14 @@
                                 monthlyData[label].totalButirPecah += parseInt(row[12] || 0);
                             });
 
+                            // Hitung total Rak Utuh, Butir Utuh, Rak Retak, Butir Retak, Rak Pecah, dan Butir Pecah
+                            var totalRakUtuh = Object.values(monthlyData).reduce((total, data) => total + data.totalRakUtuh, 0);
+                            var totalButirUtuh = Object.values(monthlyData).reduce((total, data) => total + data.totalButirUtuh, 0);
+                            var totalRakRetak = Object.values(monthlyData).reduce((total, data) => total + data.totalRakRetak, 0);
+                            var totalButirRetak = Object.values(monthlyData).reduce((total, data) => total + data.totalButirRetak, 0);
+                            var totalRakPecah = Object.values(monthlyData).reduce((total, data) => total + data.totalRakPecah, 0);
+                            var totalButirPecah = Object.values(monthlyData).reduce((total, data) => total + data.totalButirPecah, 0);
+
                             // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah dengan animasi
                             $('#totalAyam').prop('Counter', 0).animate({
                                 Counter: totalAyam
@@ -194,6 +202,60 @@
                             });
                             $('#totalSisaAyam').prop('Counter', 0).animate({
                                 Counter: totalSisaAyam
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakUtuh').prop('Counter', 0).animate({
+                                Counter: totalRakUtuh
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalButirUtuh').prop('Counter', 0).animate({
+                                Counter: totalButirUtuh
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakRetak').prop('Counter', 0).animate({
+                                Counter: totalRakRetak
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalButirRetak').prop('Counter', 0).animate({
+                                Counter: totalButirRetak
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakPecah').prop('Counter', 0).animate({
+                                Counter: totalRakPecah
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalButirPecah').prop('Counter', 0).animate({
+                                Counter: totalButirPecah
                             }, {
                                 duration: 1000,
                                 easing: 'swing',
@@ -236,13 +298,7 @@
                             // Tambahkan grafik bar
                             var barChartCanvas = document.getElementById('barChart');
                             var barChartData = {
-                                labels: Object.keys(monthlyData).map(label => {
-                                    var parts = label.split('-');
-                                    var year = parts[0];
-                                    var month = parseInt(parts[1]);
-                                    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                                    return monthNames[month - 1] + ' ' + year; // Ambil nama bulan dari array monthNames berdasarkan nomor bulan dan tambahkan tahun
-                                }),
+                                labels: Object.keys(monthlyData), // Label bulan dengan tahun (misalnya, 2022-01)
                                 datasets: [
                                     {
                                         label: 'Rak Utuh',
