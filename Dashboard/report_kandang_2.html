@@ -21,7 +21,6 @@
 </head>
 <body>
 
-    
 <div class="container">
     <h2 class="my-4 text-center">Informasi Grafik</h2>
 </div>
@@ -268,7 +267,7 @@
                                 }
                             });
 
-                            // Tambahkan grafik doughnut
+                            // Tambahkan grafik pie
                             var pieChartCanvas = document.getElementById('pieChart');
                             var pieChartData = {
                                 labels: ['Ayam Mati', 'Ayam Afkir'],
@@ -276,31 +275,25 @@
                                     label: 'Ayam',
                                     data: [totalAyamMati, totalAyamAfkir],
                                     backgroundColor: [
-                                        'rgba(255, 99, 132)',
-                                        'rgba(54, 162, 235)'
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)'
                                     ],
                                     borderColor: [
-                                        'rgba(255, 99, 132)',
-                                        'rgba(54, 162, 235)'
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)'
                                     ],
                                     borderWidth: 1
                                 }]
                             };
                             var pieChartOptions = {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                    legend: {
-                                        position: 'top',
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: 'Ayam Mati vs Ayam Afkir'
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
                                     }
                                 }
                             };
                             new Chart(pieChartCanvas, {
-                                type: 'doughnut',
+                                type: 'pie',
                                 data: pieChartData,
                                 options: pieChartOptions
                             });
