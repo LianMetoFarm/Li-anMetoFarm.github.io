@@ -161,6 +161,44 @@
                                 monthlyData[month].totalButirPecah += parseInt(row[12] || 0);
                             });
 
+                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah dengan animasi
+                            $('#totalAyam').prop('Counter', 0).animate({
+                                Counter: totalAyam
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalAyamMati').prop('Counter', 0).animate({
+                                Counter: totalAyamMati
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalAyamAfkir').prop('Counter', 0).animate({
+                                Counter: totalAyamAfkir
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalSisaAyam').prop('Counter', 0).animate({
+                                Counter: totalSisaAyam
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+
                             // Tambahkan grafik pie
                             var pieChartCanvas = document.getElementById('pieChart');
                             var pieChartData = {
@@ -195,7 +233,10 @@
                             // Tambahkan grafik bar
                             var barChartCanvas = document.getElementById('barChart');
                             var barChartData = {
-                                labels: Object.keys(monthlyData).map(month => 'Bulan ' + month), // Ubah label ke format 'Bulan 1', 'Bulan 2', ...
+                                labels: Object.keys(monthlyData).map(month => {
+                                    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                    return monthNames[parseInt(month) - 1]; // Ambil nama bulan dari array monthNames berdasarkan nomor bulan
+                                }),
                                 datasets: [
                                     {
                                         label: 'Rak Utuh',
