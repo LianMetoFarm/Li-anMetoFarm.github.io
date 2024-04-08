@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Kandang Ayam</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- DataTables CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5-1.11.5/datatables.min.css"/>
     <style>
         .chart-container {
             position: relative;
@@ -40,25 +40,25 @@
                           <div class="col-lg-4 col-md-6">
                             <div class="p-4">
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>"Total Rak Utuh"</span>
-                                <h3 id="totalRakUtuh" class="mb-0 mt-2 text-center"></h3>
+                                <h3 id="totalRakUtuh" class="mb-0 mt-2" style="text-align: center;"></h3>
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Butir Utuh</span>
-                                <h3 id="totalButirUtuh" class="mb-0 mt-2 text-center"></h3>
+                                <h3 id="totalButirUtuh" class="mb-0 mt-2" style="text-align: center;"></h3>
                             </div>
                           </div>
                           <div class="col-lg-4 col-md-6">
                             <div class="p-4">
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Rak Retak</span>
-                                <h3 id="totalRakRetak" class="mb-0 mt-2 text-center"></h3>
+                                <h3 id="totalRakRetak" class="mb-0 mt-2" style="text-align: center;"></h3>
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Butir Retak</span>
-                                <h3 id="totalButirRetak" class="mb-0 mt-2 text-center"></h3>
+                                <h3 id="totalButirRetak" class="mb-0 mt-2" style="text-align: center;"></h3>
                             </div>
                           </div>
                           <div class="col-lg-4 col-md-6">
                             <div class="p-4">
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Rak Pecah</span>
-                                <h3 id="totalRakPecah" class="mb-0 mt-2 text-center"></h3>
+                                <h3 id="totalRakPecah" class="mb-0 mt-2" style="text-align: center;"></h3>
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Butir Pecah</span>
-                                <h3 id="totalButirPecah" class="mb-0 mt-2 text-center"></h3>
+                                <h3 id="totalButirPecah" class="mb-0 mt-2" style="text-align: center;"></h3>
                             </div>
                           </div>
                         </div>
@@ -74,7 +74,7 @@
                 <h4 class="mb-0">Kematian Ayam</h4>
               </div>
               <div class="card-body">
-                <canvas id="pieChart" class="apexcharts-canvas apexchartsi22e5mpb apexcharts-theme-light" style="width: 100%; height: auto;"></canvas>
+                <canvas id="pieChart" style="width: 328px; height: 359.8px;"></canvas>
                 <table class="table table-sm table-borderless mb-0 mt-5">
                   <tbody>
                     <tr>
@@ -108,14 +108,12 @@
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- jQuery Slim -->
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 <!-- DataTables -->
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5-1.11.5/datatables.min.js"></script>
 <!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
 
 <script>
     $(document).ready(function() {
