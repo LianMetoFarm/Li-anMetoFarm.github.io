@@ -17,6 +17,9 @@
             max-width: 100%;
             height: auto;
         }
+        .fs-responsive {
+            font-size: 1.2em; /* Ganti dengan ukuran font yang sesuai */
+        }
     </style>
 </head>
 <body>
@@ -33,32 +36,32 @@
                     <h4 class="mb-0">Produksi Telur</h4>
                 </div>
                 <div class="card-body">                 
-                    <canvas id="barChart" style="min-height: 365px;"></canvas>
+                    <canvas id="barChart" class="chart-container"></canvas>
 
                     <div class="mt-4 px-lg-6">
                         <div class="row bg-light rounded-3">
                           <div class="col-lg-4 col-md-6">
                             <div class="p-4">
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Rak Utuh</span>
-                                <h3 id="totalRakUtuh" class="mb-0 mt-2" style="text-align: center;"></h3>
+                                <h3 id="totalRakUtuh" class="mb-0 mt-2 fs-responsive" style="text-align: center;"></h3>
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Butir Utuh</span>
-                                <h3 id="totalButirUtuh" class="mb-0 mt-2" style="text-align: center;"></h3>
+                                <h3 id="totalButirUtuh" class="mb-0 mt-2 fs-responsive" style="text-align: center;"></h3>
                             </div>
                           </div>
                           <div class="col-lg-4 col-md-6">
                             <div class="p-4">
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Rak Retak</span>
-                                <h3 id="totalRakRetak" class="mb-0 mt-2" style="text-align: center;"></h3>
+                                <h3 id="totalRakRetak" class="mb-0 mt-2 fs-responsive" style="text-align: center;"></h3>
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Butir Retak</span>
-                                <h3 id="totalButirRetak" class="mb-0 mt-2" style="text-align: center;"></h3>
+                                <h3 id="totalButirRetak" class="mb-0 mt-2 fs-responsive" style="text-align: center;"></h3>
                             </div>
                           </div>
                           <div class="col-lg-4 col-md-6">
                             <div class="p-4">
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Rak Pecah</span>
-                                <h3 id="totalRakPecah" class="mb-0 mt-2" style="text-align: center;"></h3>
+                                <h3 id="totalRakPecah" class="mb-0 mt-2 fs-responsive" style="text-align: center;"></h3>
                                 <span><i class="mdi mdi-circle small me-1 text-primary"></i>Total Butir Pecah</span>
-                                <h3 id="totalButirPecah" class="mb-0 mt-2" style="text-align: center;"></h3>
+                                <h3 id="totalButirPecah" class="mb-0 mt-2 fs-responsive" style="text-align: center;"></h3>
                             </div>
                           </div>
                         </div>
@@ -74,7 +77,7 @@
                 <h4 class="mb-0">Kematian Ayam</h4>
               </div>
               <div class="card-body">
-                <canvas id="pieChart" class="apexcharts-canvas apexchartsi22e5mpb apexcharts-theme-light" style="width: 328px; height: 359.8px;"></canvas>
+                <canvas id="pieChart" class="chart-container"></canvas>
                 <table class="table table-sm table-borderless mb-0 mt-5">
                   <tbody>
                     <tr>
