@@ -17,6 +17,10 @@
             max-width: 100%;
             height: auto;
         }
+        /* Responsifkan font */
+        h3 {
+            font-size: 2rem; /* Anda dapat menyesuaikan ukuran font sesuai kebutuhan */
+        }
     </style>
 </head>
 <body>
@@ -33,7 +37,7 @@
                     <h4 class="mb-0">Produksi Telur</h4>
                 </div>
                 <div class="card-body">                 
-                    <canvas id="barChart" style="min-height: 365px;"></canvas>
+                    <canvas id="barChart" style="min-height: 365px; width: 100%;"></canvas>
 
                     <div class="mt-4 px-lg-6">
                         <div class="row bg-light rounded-3">
@@ -74,7 +78,7 @@
                 <h4 class="mb-0">Kematian Ayam</h4>
               </div>
               <div class="card-body">
-                <canvas id="pieChart" class="apexcharts-canvas apexchartsi22e5mpb apexcharts-theme-light" style="width: 328px; height: 359.8px;"></canvas>
+                <canvas id="pieChart" class="apexcharts-canvas apexchartsi22e5mpb apexcharts-theme-light" style="width: 100%; height: auto;"></canvas>
                 <table class="table table-sm table-borderless mb-0 mt-5">
                   <tbody>
                     <tr>
@@ -320,11 +324,8 @@
                                 }]
                             };
                             var pieChartOptions = {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
+                                responsive: true, // Make chart responsive
+                                maintainAspectRatio: false // Disable aspect ratio
                             };
                             new Chart(pieChartCanvas, {
                                 type: 'pie',
@@ -382,6 +383,8 @@
                                 ]
                             };
                             var barChartOptions = {
+                                responsive: true, // Make chart responsive
+                                maintainAspectRatio: false, // Disable aspect ratio
                                 scales: {
                                     y: {
                                         beginAtZero: true
