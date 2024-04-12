@@ -20,21 +20,6 @@
         .fs-responsive {
             font-size: 1.2em; /* Ganti dengan ukuran font yang sesuai */
         }
-        /* New styles for div structure */
-        .data-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .data-box {
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 20px;
-            width: calc(50% - 20px);
-            box-sizing: border-box;
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
@@ -93,7 +78,26 @@
               <div class="card-body">
                 <canvas id="pieChart" class="chart-container"></canvas>
             </div>
-            
+            <table class="table table-sm table-borderless mb-0 mt-5">
+              <tbody>
+                <tr>
+                  <td><i class="mdi mdi-square-rounded text-primary fs-5 me-2"></i>Total Ayam Masuk :</td>
+                  <td class="text-success"><span id="totalAyam"></span></td>
+                </tr>
+                <tr>
+                  <td><i class="mdi mdi-square-rounded text-warning fs-5 me-2"></i>Total Ayam Mati :</td>
+                  <td class="text-success"><span id="totalAyamMati"></td>
+                </tr>
+                <tr>
+                  <td><i class="mdi mdi-square-rounded text-danger fs-5 me-2"></i>Total Ayam Afkir :</td>
+                  <td class="text-success"><span id="totalAyamAfkir"></td>
+                </tr>
+                <tr>
+                  <td><i class="mdi mdi-square-rounded text-info fs-5 me-2"></i>Total Sisa Ayam :</td>
+                  <td class="text-success"><span id="totalSisaAyam"></span></td>
+                </tr>
+              </tbody>
+            </table>
             </div>
         </div>
 
@@ -102,7 +106,7 @@
 
 <div class="container">
     <h1 class="my-4">Data Kandang 2</h1>
-    <div class="table-responsive table-borderless mb-0 mt-5 data-container" id="data-container"></div>
+    <div class="table-responsive" id="data-container"></div>
 </div>
 
 <!-- Bootstrap Bundle with Popper -->
@@ -155,31 +159,244 @@
                         if (sheetData && sheetData.values && sheetData.values.length > 0) {
                             var rows = sheetData.values;
 
-                            // Tambahkan data ke dalam div menggunakan format yang sesuai
-                            var dataContainer = $('#data-container');
-                            dataContainer.empty();
-                            rows.forEach(function(row) {
-                                var dataBox = $('<div class="data-box"></div>');
-                                dataBox.append('<p><strong>' + columnTitles[0] + ':</strong> ' + row[0] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[1] + ':</strong> ' + row[1] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[2] + ':</strong> ' + row[2] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[3] + ':</strong> ' + row[3] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[4] + ':</strong> ' + row[4] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[5] + ':</strong> ' + row[5] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[6] + ':</strong> ' + row[6] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[7] + ':</strong> ' + row[7] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[8] + ':</strong> ' + row[8] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[9] + ':</strong> ' + row[9] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[10] + ':</strong> ' + row[10] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[11] + ':</strong> ' + row[11] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[12] + ':</strong> ' + row[12] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[13] + ':</strong> ' + row[13] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[14] + ':</strong> ' + row[14] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[15] + ':</strong> ' + row[15] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[16] + ':</strong> ' + row[16] + '</p>');
-                                dataBox.append('<p><strong>' + columnTitles[17] + ':</strong> ' + row[17] + '</p>');
-                                dataContainer.append(dataBox);
+                            // Tambahkan data ke dalam tabel menggunakan DataTables
+                            $('#data-container').html('<table id="data-table" class="table table-striped text-success table-border"></table>');
+                            $('#data-table').DataTable({
+                                data: rows,
+                                columns: columnTitles.map(title => ({title: title})),
+                                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                                pageLength: 5 // Set jumlah entri per halaman secara default
                             });
+
+                            // Hitung total ayam
+                            var totalAyam = parseInt(rows[0][6] || 0);
+
+                            // Hitung total ayam mati dan total ayam afkir
+                            var totalAyamMati = rows.reduce((total, row) => total + parseInt(row[4] || 0), 0);
+                            var totalAyamAfkir = rows.reduce((total, row) => total + parseInt(row[5] || 0), 0);
+
+                            // Hitung total sisa ayam
+                            var totalSisaAyam = parseInt(rows[0][6] || 0) - totalAyamMati - totalAyamAfkir;
+
+                            // Hitung total per bulan untuk grafik batang
+                            var monthlyData = {};
+                            rows.forEach(function(row) {
+                                var date = new Date(row[1]);
+                                var year = date.getFullYear();
+                                var month = date.getMonth() + 1; // Ambil bulan dari kolom kedua (tanggal) dan tambahkan 1 karena bulan dimulai dari 0
+                                var label = year + '-' + (month < 10 ? '0' + month : month); // Format label bulan dengan tahun (misalnya, 2022-01)
+                                if (!monthlyData[label]) {
+                                    monthlyData[label] = {
+                                        totalRakUtuh: 0,
+                                        totalButirUtuh: 0,
+                                        totalRakRetak: 0,
+                                        totalButirRetak: 0,
+                                        totalRakPecah: 0,
+                                        totalButirPecah: 0
+                                    };
+                                }
+                                monthlyData[label].totalRakUtuh += parseInt(row[7] || 0);
+                                monthlyData[label].totalButirUtuh += parseInt(row[8] || 0);
+                                monthlyData[label].totalRakRetak += parseInt(row[9] || 0);
+                                monthlyData[label].totalButirRetak += parseInt(row[10] || 0);
+                                monthlyData[label].totalRakPecah += parseInt(row[11] || 0);
+                                monthlyData[label].totalButirPecah += parseInt(row[12] || 0);
+                            });
+
+                            // Hitung total Rak Utuh, Butir Utuh, Rak Retak, Butir Retak, Rak Pecah, dan Butir Pecah
+                            var totalRakUtuh = Object.values(monthlyData).reduce((total, data) => total + data.totalRakUtuh, 0);
+                            var totalButirUtuh = Object.values(monthlyData).reduce((total, data) => total + data.totalButirUtuh, 0);
+                            var totalRakRetak = Object.values(monthlyData).reduce((total, data) => total + data.totalRakRetak, 0);
+                            var totalButirRetak = Object.values(monthlyData).reduce((total, data) => total + data.totalButirRetak, 0);
+                            var totalRakPecah = Object.values(monthlyData).reduce((total, data) => total + data.totalRakPecah, 0);
+                            var totalButirPecah = Object.values(monthlyData).reduce((total, data) => total + data.totalButirPecah, 0);
+
+                            // Tampilkan total ayam mati, total ayam afkir, total sisa ayam, total rak utuh, total butir utuh, total rak retak, total butir retak, total rak pecah, dan total butir pecah dengan animasi
+                            $('#totalAyam').prop('Counter', 0).animate({
+                                Counter: totalAyam
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalAyamMati').prop('Counter', 0).animate({
+                                Counter: totalAyamMati
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalAyamAfkir').prop('Counter', 0).animate({
+                                Counter: totalAyamAfkir
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalSisaAyam').prop('Counter', 0).animate({
+                                Counter: totalSisaAyam
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakUtuh').prop('Counter', 0).animate({
+                                Counter: totalRakUtuh
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalButirUtuh').prop('Counter', 0).animate({
+                                Counter: totalButirUtuh
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakRetak').prop('Counter', 0).animate({
+                                Counter: totalRakRetak
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalButirRetak').prop('Counter', 0).animate({
+                                Counter: totalButirRetak
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalRakPecah').prop('Counter', 0).animate({
+                                Counter: totalRakPecah
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+                            $('#totalButirPecah').prop('Counter', 0).animate({
+                                Counter: totalButirPecah
+                            }, {
+                                duration: 1000,
+                                easing: 'swing',
+                                step: function(now) {
+                                    $(this).text(Math.ceil(now));
+                                }
+                            });
+
+                            // Tambahkan grafik pie
+                            var pieChartCanvas = document.getElementById('pieChart');
+                            var pieChartData = {
+                                labels: ['Ayam Mati', 'Ayam Afkir'],
+                                datasets: [{
+                                    label: 'Ayam',
+                                    data: [totalAyamMati, totalAyamAfkir],
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            };
+                            var pieChartOptions = {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            };
+                            new Chart(pieChartCanvas, {
+                                type: 'pie',
+                                data: pieChartData,
+                                options: pieChartOptions
+                            });
+
+                            // Tambahkan grafik bar
+                            var barChartCanvas = document.getElementById('barChart');
+                            var barChartData = {
+                                labels: Object.keys(monthlyData), // Label bulan dengan tahun (misalnya, 2022-01)
+                                datasets: [
+                                    {
+                                        label: 'Rak Utuh',
+                                        data: Object.values(monthlyData).map(data => data.totalRakUtuh),
+                                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Butir Utuh',
+                                        data: Object.values(monthlyData).map(data => data.totalButirUtuh),
+                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Rak Retak',
+                                        data: Object.values(monthlyData).map(data => data.totalRakRetak),
+                                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                                        borderColor: 'rgba(255, 206, 86, 1)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Butir Retak',
+                                        data: Object.values(monthlyData).map(data => data.totalButirRetak),
+                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Rak Pecah',
+                                        data: Object.values(monthlyData).map(data => data.totalRakPecah),
+                                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                                        borderColor: 'rgba(153, 102, 255, 1)',
+                                        borderWidth: 1
+                                    },
+                                    {
+                                        label: 'Butir Pecah',
+                                        data: Object.values(monthlyData).map(data => data.totalButirPecah),
+                                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                                        borderColor: 'rgba(255, 159, 64, 1)',
+                                        borderWidth: 1
+                                    }
+                                ]
+                            };
+                            var barChartOptions = {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            };
+                            var barChart = new Chart(barChartCanvas, {
+                                type: 'bar',
+                                data: barChartData,
+                                options: barChartOptions
+                            });
+
+                            barChart.update();
                         } else {
                             console.log('Data tidak tersedia atau tidak valid.');
                         }
