@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Data Visualization from Google Sheets</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Google Sheets API Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 </head>
 <body>
-  <canvas id="myChart"></canvas>
-  <table id="dataTable" border="1">
+  <canvas id="myChart" width="400" height="200"></canvas>
+  <table id="dataTable">
     <thead>
       <tr>
         <th>Date</th>
@@ -14,79 +14,80 @@
         <th>Cost</th>
       </tr>
     </thead>
-    <tbody>
-      <!-- Data will be inserted here -->
-    </tbody>
+    <tbody></tbody>
   </table>
 
   <script>
-    var spreadsheetId = '1Rw9tiukS0x95xo1wisWOTLCYKt96QDC2RTf1uoxy_DM';
-    var apiKey = 'AIzaSyBJ52mawoRgwYjQd9kPjx0gIwjvFlX4Ysc';
-    var range = 'Sheet1!A11:C'; // Data starts from B11
+    var spreadsheetId = 'YOUR_SPREADSHEET_ID';
+    var apiKey = 'YOUR_API_KEY';
+    var sheetNames = ['Kandang 2']; // Daftar nama sheet yang ingin diambil
+    var range = 'B11:D'; // Data starts from B11
 
     var xhr = new XMLHttpRequest();
 
-    var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId + '/values/' + range + '?key=' + apiKey;
+    sheetNames.forEach(function(sheetName) {
+      var url = 'https://sheets.googleapis.com/v4/spreadsheets/' + spreadsheetId + '/values/' + sheetName + '!' + range + '?key=' + apiKey;
 
-    xhr.open('GET', url);
-    xhr.responseType = 'json';
+      xhr.open('GET', url);
+      xhr.responseType = 'json';
 
-    xhr.onload = function() {
-      var data = xhr.response.values;
+      xhr.onload = function() {
+        var data = xhr.response.values;
 
-      var chartData = {
-        labels: data.map(function(row) { return row[0]; }).slice(1),
-        datasets: [
-          {
-            label: 'Sales',
-            data: data.map(function(row) { return row[1]; }).slice(1),
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-          },
-          {
-            label: 'Cost',
-            data: data.map(function(row) { return row[2]; }).slice(1),
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
+        var chartData = {
+          labels: data.map(function(row) { return row[0]; }).slice(1),
+          datasets: [
+            {
+              label: 'Sales',
+              data: data.map(function(row) { return row[1]; }).slice(1),
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Cost',
+              data: data.map(function(row) { return row[2]; }).slice(1),
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+            }
+          ]
+        };
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+          type: 'line',
+          data: chartData,
+          options: {
+            title: {
+              display: true,
+              text: 'Sales and Cost Over Time'
+            },
+            scales: {
+              yAxes: [{
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Value'
+                }
+              }]
+            }
           }
-        ]
+        });
+
+        // Populate table with data
+        var tableBody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+        data.slice(1).forEach(function(row) {
+          var newRow = tableBody.insertRow();
+          row.forEach(function(cellData) {
+            var newCell = newRow.insertCell();
+            newCell.appendChild(document.createTextNode(cellData));
+          });
+        });
       };
 
-      var ctx = document.getElementById('myChart').getContext('2d');
-
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: chartData,
-        options: {
-          title: {
-            display: true,
-            text: 'Sales and Cost Over Time'
-          },
-          scales: {
-            yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Value'
-              }
-            }]
-          }
-        }
-      });
-
-      // Populate table with data
-      var tableBody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
-      data.slice(1).forEach(function(row) {
-        var newRow = tableBody.insertRow();
-        row.forEach(function(cellData) {
-          var newCell = newRow.insertCell();
-          newCell.appendChild(document.createTextNode(cellData));
-        });
-      });
-    };
-
-    xhr.send();
+      xhr.send();
+    });
   </script>
 </body>
 </html>
