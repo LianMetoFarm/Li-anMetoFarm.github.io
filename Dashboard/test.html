@@ -40,27 +40,20 @@
             {
               label: 'Sales',
               data: data.map(function(row) { return row[6]; }).slice(1),
-              backgroundColor: 'rgba(54, 162, 235, 0.2)',
-              borderColor: 'rgba(54, 162, 235, 1)',
-              borderWidth: 2,
-              pointRadius: 5,
-              pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-              pointBorderColor: 'rgba(54, 162, 235, 1)',
-              pointHoverRadius: 7,
               fill: true,
-              tension: 0.4
+              backgroundColor: 'rgba(66, 133, 244, 0.2)',
+              borderColor: 'rgb(66, 133, 244)',
+              pointBackgroundColor: 'rgb(66, 133, 244)',
+              tension: 0.3
             },
             {
               label: 'Cost',
               data: data.map(function(row) { return row[7]; }).slice(1),
-              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-              borderColor: 'rgba(255, 99, 132, 1)',
-              pointRadius: 5,
-              pointBackgroundColor: 'rgba(255, 99, 132, 0.2)',
-              pointBorderColor: 'rgba(255, 99, 132, 1)',
-              pointHoverRadius: 7,
               fill: true,
-              tension: 0.4
+              backgroundColor: 'rgba(52, 168, 83, 0.2)',
+              borderColor: 'rgb(52, 168, 83)',
+              pointBackgroundColor: 'rgb(52, 168, 83)',
+              tension: 0.
             }
           ]
         };
@@ -69,34 +62,36 @@
 
         var myChart = new Chart(ctx, {
           type: 'line',
-          data: chartData,
+          data: data,
           options: {
-            title: {
-              display: true,
-              text: 'Penjualan Bruto',
-              fontSize: 20
+            plugins: {
+              tooltip: {
+                usePointStyle: true,
+                mode: 'index',
+                intersect: false,
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                borderColor: 'grey',
+                borderWidth: 1,
+                bodyColor: 'black'
+              },
+              legend: {
+                position: 'top',
+              }
             },
-            legend: {
-              display: true,
-              position: 'bottom'
-            },
+            responsive: true,
             scales: {
-              xAxes: [{
-                gridLines: {
-                  display: false
+              x: {
+                grid: {
+                  drawBorder: false,
+                  color: 'rgba(0,0,0,0.05)'
                 }
-              }],
-              yAxes: [{
-                gridLines: {
-                  color: 'rgba(0, 0, 0, 0.1)'
-                },
-                ticks: {
-                  beginAtZero: true,
-                  callback: function(value, index, values) {
-                    return '$' + value; // Menambahkan simbol dollar pada label sumbu y
-                  }
+              },
+              y: {
+                grid: {
+                  drawBorder: false,
+                  color: 'rgba(0,0,0,0.05)'
                 }
-              }]
+              }
             }
           }
         });
