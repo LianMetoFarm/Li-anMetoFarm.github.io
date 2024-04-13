@@ -42,14 +42,23 @@
               data: data.map(function(row) { return row[1]; }).slice(1),
               backgroundColor: 'rgba(54, 162, 235, 0.2)',
               borderColor: 'rgba(54, 162, 235, 1)',
-              borderWidth: 1
+              borderWidth: 2,
+              pointRadius: 5,
+              pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+              pointBorderColor: 'rgba(54, 162, 235, 1)',
+              pointHoverRadius: 7,
+              fill: true
             },
             {
               label: 'Cost',
               data: data.map(function(row) { return row[2]; }).slice(1),
               backgroundColor: 'rgba(255, 99, 132, 0.2)',
               borderColor: 'rgba(255, 99, 132, 1)',
-              borderWidth: 1
+              pointRadius: 5,
+              pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+              pointBorderColor: 'rgba(54, 162, 235, 1)',
+              pointHoverRadius: 7,
+              fill: true
             }
           ]
         };
@@ -62,13 +71,28 @@
           options: {
             title: {
               display: true,
-              text: 'Sales and Cost Over Time'
+              text: 'Penjualan Bruto',
+              fontSize: 20
+            },
+            legend: {
+              display: true,
+              position: 'bottom'
             },
             scales: {
+              xAxes: [{
+                gridLines: {
+                  display: false
+                }
+              }],
               yAxes: [{
-                scaleLabel: {
-                  display: true,
-                  labelString: 'Value'
+                gridLines: {
+                  color: 'rgba(0, 0, 0, 0.1)'
+                },
+                ticks: {
+                  beginAtZero: true,
+                  callback: function(value, index, values) {
+                    return '$' + value; // Menambahkan simbol dollar pada label sumbu y
+                  }
                 }
               }]
             }
